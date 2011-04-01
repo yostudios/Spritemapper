@@ -1,0 +1,167 @@
+
+body {
+  background-color: #f5f9f0;
+  background-image: url(../img/bg.png);
+  background-repeat: repeat-x;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #252626;
+}
+
+.grid-wrap {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.clear {
+  clear: both;
+}
+
+header {
+  position: relative;
+  height: 80px;
+}
+
+header h1 {
+  background: url(../img/sprites/spritemapper.png);
+  width: 305px;
+  height: 48px;
+  text-indent: -999px;
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+header p {
+  position: absolute;
+  font-size: 12px;
+  left: 50px;
+  top: 45px;
+}
+
+pre.code {
+  background: #fff;
+  padding: 20px;
+  font-family: 'Menlo', 'Monaco', fixed;
+  font-size: 12px;
+  width: 500px;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+}
+
+.css .comment {
+  font-style: italic;
+  color: #0054FF;
+}
+
+.css .class {
+  color: #3566C7;
+}
+
+.css .rule .keyword {
+  font-weight: bold;
+}
+
+.css .rule .value .function {
+  font-weight: bold;
+}
+
+.css .rule .value .function .params {
+  font-weight: normal;
+  color: #179439;
+}
+
+.css .rule .value .number {
+  color: #277CFA;
+}
+
+.html .tag {
+  color: #3566C7;
+}
+
+.html .tag .value {
+  color: #179439;
+}
+
+.html .tag .attribute {
+  font-style: italic;
+}
+
+.html .tag .keyword {
+  font-weight: bold;
+}
+
+
+section h2 {
+  font-size: 33px;
+  text-indent: 10px;
+  margin-bottom: 15px;
+}
+
+section p {
+  margin: 0 20px;
+}
+
+section h3 {
+  font-size: 23px;
+  text-indent: 15px;
+  margin: 20px 0;
+  margin-bottom: 10px;
+  clear: both;
+}
+
+#example pre {
+  float: left;
+  margin-right: 20px;
+}
+
+#example ul {
+  float: left;
+}
+
+#test ul li {
+  margin-bottom: 5px;
+}
+
+.spritemap-preview {
+  background: url(../img/transparency_pattern.png);
+  float: left;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+}
+
+
+
+
+.die {
+  background: #600019;
+  border-bottom: 10px solid #510024;
+  padding-top: 10px;
+  margin-bottom: 20px;
+}
+
+.die,
+.die a {
+  color: #fff;
+}
+
+.die h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.die p {
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+
+.die p .browser {
+  float: right;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-right: 30px;
+}
+
+.die p .browser a {
+  margin: 0 2px;
+}

@@ -1,0 +1,41 @@
+/*
+  # optional configuration
+
+  # `base_url` says from where to serve the spritemaps.
+  # if not set, uses relative paths.
+  spritemapper.base_url = http://example.com/static/css/
+
+  # `sprite_folders` is a comma separated list of folders within which
+  # to create spritemaps. the named folders and their subdirectories are
+  # all spritemapped (if there are sprites used in those directories).
+  # by default, all top-level directories are used.
+  spritemapper.sprite_dirs = ../img/example-sprite
+
+  # `output_file` is the name of output css file.
+  # defaults to "sm_" + current filename
+  spritemapper.output_file = example.css
+*/
+
+.mysprite1 {
+  background: url(../img/example-sprite/image1.png);
+  width: 103px;
+  height: 46px;
+}
+
+.mysprite2 {
+  background: url(../img/example-sprite/image2.png);
+  width: 95px;
+  height: 102px;
+}
+
+.mysprite3 {
+  background: url(../img/example-sprite/image3.png);
+  width: 103px;
+  height: 46px;
+}
+
+.mysprite4 {
+  background: url(../img/example-sprite/image4.png);
+  width: 103px;
+  height: 46px;
+}
