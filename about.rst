@@ -2,6 +2,8 @@
  Pure CSS Spritemapping 
 ========================
 
+:Author: Ludvig Ericson <ludvig@sendapatch.se>
+
 The problem is an all too common one to not have been solved once and for all:
 the problem is that of using sprites on the web.
 
@@ -141,26 +143,28 @@ __ http://yo.se/
 A pure approach
 ---------------
 
-After extensive arguing with my frontend guy, friend and roomie `Johan
-Nordberg`__, we came up with a simple yet elegant solution -- without further
-ado, some CSS:
+After extensive arguing with my frontend guy and friend `Johan Nordberg`__, we
+came up with a simple yet elegant solution -- without further ado, some CSS:
 
 __ http://johan-nordberg.com/
 
 .. code-block:: css
 
    .emote.smile {
-     background: url(../img/sprites/emoticons/smile.png) no-repeat;
+     background: red url(../img/sprites/emoticons/smile.png) no-repeat;
    }
    .emote.grin {
-     background: url(../img/sprites/emoticons/grin.png) no-repeat;
+     background: white url(../img/sprites/emoticons/grin.png) no-repeat;
    }
 
 You can probably see where I'm going with this: our approach is to parse the
 CSS as CSS, and look at the paths to determine what should be spritemapped and
-what shouldn't. It's important to understand that not everything can be
-spritemapped: it would be an error to specify X or Y offsets in the above
-background attributes.
+what shouldn't.
+
+It's important to understand that not everything can be spritemapped: it would
+be an error to specify X or Y offsets in the above background attributes.
+
+An example of the output for the above document could be:
 
 .. code-block:: css
 
@@ -168,5 +172,10 @@ background attributes.
      background: red url(../img/spritemaps/emoticons.png) no-repeat 0 0;
    }
    .emote.grin {
-     background: white url(../img/spritemaps/emoticons.png) no-repeat -16px -16px;
+     background: white url(../img/spritemaps/emoticons.png) no-repeat 0 -16px;
    }
+
+Conclusion
+==========
+
+There is need of a tool that does this. TODO Make an actual conclusion
