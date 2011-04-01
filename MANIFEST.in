@@ -1,0 +1,9 @@
+include README.rst MANIFEST.in setup.py
+recursive-include spritecss *.py
+recursive-include tests *.py
+
+include htdocs/runserver.py
+include htdocs/*.html
+recursive-include htdocs/css *.css
+recursive-include htdocs/js *.js
+recursive-include htdocs/img *.png
