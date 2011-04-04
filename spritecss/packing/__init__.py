@@ -192,7 +192,8 @@ class PackedBoxes(object):
 
     def _anneal(self, boxes):
         boxes = list(boxes)
-        random.shuffle(boxes)
+        # TODO Find out whether sorting by box area is really a smart move.
+        boxes.sort(key=lambda b: b.area)
         p = PackingAnnealer(boxes)
         (plcs, size) = p.anneal(800000, 1100, self.anneal_steps, 20)
         self.optimal_area = int(sum(b.outer_area for b in boxes))
