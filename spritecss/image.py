@@ -17,7 +17,10 @@ class Image(object):
         return self
 
     def save(self, fo):
-        w = png.Writer(size=self.size, bitdepth=self.bitdepth)
+        kwds = self._meta.copy()
+        for k in ("size", "width", "height", "bitdepth"):
+            kwds.pop(k, None)
+        w = png.Writer(size=self.size, **kwds)
         w.write(fo, self.pixels)
 
     @property
