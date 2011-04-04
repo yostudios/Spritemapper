@@ -35,6 +35,7 @@ def tokenize_quoted():
                  [('char', '"'),
                   ('char', 'x'),
                   ('char', '\\'),
+                  ('char', '\\'),
                   ('char', 'y'),
                   ('char', '"'),
                   ('char', 'z'),
