@@ -1,1 +1,0 @@
-"Builds spritemaps from sprites"

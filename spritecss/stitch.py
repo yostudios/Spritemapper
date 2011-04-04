@@ -3,9 +3,7 @@
 from array import array
 from itertools import izip, chain, repeat
 
-from ..image import Image
-from ..packing import PackedBoxes
-from ..packing.sprites import SpriteNode, open_sprites
+from .image import Image
 
 class StitchedSpriteNodes(object):
     """An iterable that yields the image data rows of a tree of sprite
@@ -58,10 +56,6 @@ class StitchedSpriteNodes(object):
         else:
             return self.iter_empty_rows(n)
 
-    @classmethod
-    def from_writer(cls, root, w):
-        return cls(root, bitdepth=w.bitdepth, planes=w.planes)
-
 def stitch(packed, mode="RGBA"):
     assert mode == "RGBA"  # TODO Support other modes than RGBA
     root = packed.tree
@@ -72,26 +66,36 @@ def stitch(packed, mode="RGBA"):
     pixels = StitchedSpriteNodes(root, bitdepth=bd, planes=planes)
     return Image(root.width, root.height, pixels, meta)
 
-def _load_input(fp, conf=None):
-    import json
-    from .. import SpriteMap
+def _pack_and_stitch(smap_fn, sprites, conf=None):
+    import sys
 
-    return
-    for (smap_fn, sprite_fns) in json.load(fp):
-        with open_sprites(sprite_fns) as sprites:
-            smap = SpriteMap(smap_fn, _load_sprites(sprite_fns, conf=conf))
-            img_fname = smap.fname + ".png"
-            print "writing spritemap image", img_fname
-            im = stitch(smap)
-            with open(img_fname, "wb") as fp:
-                im.save(fp)
+    # pack boxes
+    from .packing import PackedBoxes, dump_placements, print_packed_size
+    print >>sys.stderr, "packing sprites for map", smap_fn
+    packed = PackedBoxes(sprites)
+    print_packed_size(packed, out=sys.stderr)
+    dump_placements(packed)
+
+    # write map
+    img_fname = smap_fn + ".png"
+    print >>sys.stderr, "writing spritemap image", img_fname
+    im = stitch(packed)
+    with open(img_fname, "wb") as fp:
+        im.save(fp)
 
 def main(fnames=None):
     import sys
+    import json
+    from .packing.sprites import open_sprites
 
-    for fname in fnames or sys.argv[1:]:
+    if not fnames:
+        fnames = sys.argv[1:] or ["-"]
+
+    for fname in fnames:
         with sys.stdin if (fname == "-") else open(fname, "rb") as fp:
-            _load_input(fp)
+            for (smap_fn, sprite_fns) in json.load(fp):
+                with open_sprites(sprite_fns) as sprites:
+                    _pack_and_stitch(smap_fn, sprites)
 
 if __name__ == "__main__":
     main()
