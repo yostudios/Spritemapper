@@ -215,3 +215,8 @@ class PackedBoxes(object):
 def print_packed_size(packed, out=None):
     args = (packed.size + (packed.unused_amount * 100,))
     print >>out, "Packed size is %dx%d (%.3f%% empty space)" % args
+
+def dump_placements(packed, out=None):
+    for (pos, box) in packed.placements:
+        box_desc = ",".join(map(str, box.calc_box(pos)))
+        print >>out, "{0},{1}".format(box.fname, box_desc)
