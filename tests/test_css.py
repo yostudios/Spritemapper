@@ -61,13 +61,27 @@ def parser_events():
 def reprint(css):
     reprinted = "".join(parser.CSSParser(data=css).iter_print_css())
     assert css == reprinted
+    return reprinted
 
 @parsing.test
-def parse_n_print():
+def reprint_trivial():
     reprint(" ")
     reprint("@test;\n")
     reprint("@test\n{ x: y; }\n")
     reprint("hello { world: foo; }\n")
     reprint("/* foo */bar{test:xxx;/*ee*/abc;;}\n")
+
+@parsing.test
+def reprint_escapes():
+    reprint(r's{decl:"\"hel\\lo\"";}')
+
+@parsing.test
+def reprint_test_files():
+    from os import path
+    from glob import glob
+    css_dirn = path.join(path.dirname(__file__), "test_css_files")
+    for fn in glob(path.join(css_dirn, "*.css")):
+        with open(fn, "rb") as fp:
+            reprint(fp.read())
 
 suite = Tests([tokenizing, parsing])
