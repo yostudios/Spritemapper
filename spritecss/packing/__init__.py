@@ -212,14 +212,6 @@ class PackedBoxes(object):
     def unused_amount(self):
         return float(self.unused_area) / self.area
 
-    def serialize(self):
-        def walk(n):
-            rv = dict(x1=n.x1, y1=n.y1, x2=n.x2, y2=n.y2)
-            if hasattr(n, "children"):
-                rv["children"] = [walk(c) for c in n.children]
-            return rv
-        return walk(self.tree)
-
 def print_packed_size(packed, out=None):
     args = (packed.size + (packed.unused_amount * 100,))
     print >>out, "Packed size is %dx%d (%.3f%% empty space)" % args

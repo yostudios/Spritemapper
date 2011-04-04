@@ -44,25 +44,3 @@ def open_sprites(fnames, **kwds):
     finally:
         for fn, fo in fs:
             fo.close()
-
-def _load_input(fp, conf=None):
-    import sys
-    import json
-    from .. import SpriteMap
-
-    # TODO Set padding from configuration
-    pad = (1, 1)
-
-    for (smap_fn, sprite_fns) in json.load(fp):
-        print >>sys.stderr, "packing sprites for map", smap_fn
-        with open_sprites(sprite_fns, pad=pad) as sprites:
-            smap = SpriteMap(smap_fn, sprites)
-            packed = PackedBoxes(smap)
-            print_packed_size(packed, out=sys.stderr)
-            import pprint
-            pprint.pprint(packed.save(None))
-
-if __name__ == "__main__":
-    import sys
-    with open(sys.argv[1], "rb") as fp:
-        _load_input(fp)
