@@ -167,7 +167,6 @@ def _css_tokenize_strings(toks):
                 tok.lexeme = "quote_char"
                 if not escaped and tok.value == "\\":
                     escaped = True
-                    continue
                 elif escaped:
                     escaped = False
         elif tok.value in ("'", '"'):
