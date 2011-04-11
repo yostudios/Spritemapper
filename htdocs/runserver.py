@@ -1,20 +1,20 @@
-from os import path
-from werkzeug.wsgi import SharedDataMiddleware
-from werkzeug.wrappers import Request
-from werkzeug.serving import run_simple
-from werkzeug.utils import redirect
-from werkzeug.exceptions import NotFound
+#!/usr/bin/env python
 
-@Request.application
-def index_redirect(request):
-    if request.path.endswith("/"):
-        return redirect(request.url + "index.html")
-    else:
-        raise NotFound(request.url)
-app = SharedDataMiddleware(redirect("/index.html"), {"/": path.dirname(__file__)})
+from os import chdir, path
+import BaseHTTPServer, SimpleHTTPServer
 
-def main():
-    run_simple("127.0.0.1", 8000, app)
+def runserver(host="", port=8000):
+    svr_cls = BaseHTTPServer.HTTPServer
+    hdl_cls = SimpleHTTPServer.SimpleHTTPRequestHandler
+    chdir(path.dirname(__file__))
+    addr = (host, port)
+    hdl_cls.protocol_version = "HTTP/1.0"
+    httpd = svr_cls(addr, hdl_cls)
+    bound = httpd.socket.getsockname()[0]
+    if bound == "0.0.0.0":
+        bound = "127.0.0.1"
+    print "Go to http://%s:%d/" % (bound, port)
+    httpd.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    runserver()
