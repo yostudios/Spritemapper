@@ -50,17 +50,29 @@ class SpriteMapCollector(object):
     def __iter__(self):
         return self._maps.itervalues()
 
+    def __getitem__(self, k):
+        return self._maps[k]
+
     def map_sprite_refs(self, srefs, mapper=None):
         if mapper is None:
             mapper = SpriteDirsMapper()
 
+        smaps = {}
         for sref in srefs:
-            smap_fname = mapper(sref)
-            smap = self._maps.get(smap_fname)
+            fname = mapper(sref)
+            smap = smaps.get(fname)
             if smap is None:
-                smap = self._maps[smap_fname] = SpriteMap(smap_fname)
+                smap = smaps[fname] = SpriteMap(fname)
             if sref not in smap:
                 smap.append(sref)
+    
+        for fname, smap in smaps.iteritems():
+            if fname in self._maps:
+                self._maps[fname].extend(smap)
+            else:
+                self._maps[fname] = SpriteMap(fname, smap)
+
+        return [self._maps[k] for k in smaps]
 
     def map_file(self, fname, mapper=None):
         """Convenience function to map the sprites of a given CSS file."""
