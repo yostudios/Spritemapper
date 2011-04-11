@@ -8,14 +8,16 @@ logger = logging.getLogger(__name__)
 class SpriteDirsMapper(object):
     """Maps sprites to spritemaps by using the sprite directory."""
 
-    def __init__(self, sprite_dirs=None, recursive=True):
+    def __init__(self, sprite_dirs=None, recursive=True, translate=None):
         self.sprite_dirs = sprite_dirs
         self.recursive = recursive
+        self.translate = translate
 
     @classmethod
     def from_conf(cls, conf):
         # TODO Make recursion a configurable option.
-        return cls(conf.sprite_dirs)
+        return cls(conf.sprite_dirs,
+                   translate=conf.get_spritemap_out)
 
     def _map_sprite_ref(self, sref):
         if self.sprite_dirs is None:
@@ -26,17 +28,21 @@ class SpriteDirsMapper(object):
             if prefix == sdir:
                 if self.recursive:
                     submap = path.dirname(path.relpath(sref.fname, sdir))
-                    return path.join(sdir, submap)
-                else:
-                    return sdir
-
-        raise ReferenceError
+                    if submap:
+                        return path.join(sdir, submap)
+                return sdir
+        else:
+            raise LookupError(sref)
 
     def __call__(self, sprite):
         try:
-            return self._map_sprite_ref(sprite)
-        except ReferenceError:
+            dn = self._map_sprite_ref(sprite)
+        except LookupError:
             logger.info("not mapping %r", sprite)
+        if self.translate:
+            return self.translate(dn)
+        else:
+            return dn
 
 class SpriteMapCollector(object):
     """Collect spritemap listings from sprite references."""
