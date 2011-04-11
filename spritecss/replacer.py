@@ -14,10 +14,11 @@ class SpriteReplacer(object):
                            for (sm, plcs) in spritemaps)
 
     def __call__(self, css):
-        for ev in css.evs:
-            if ev.lexeme == "declaration":
-                ev = self._replace_ev(css, ev)
-            yield ev
+        with css.open_parser() as p:
+            for ev in p:
+                if ev.lexeme == "declaration":
+                    ev = self._replace_ev(css, ev)
+                yield ev
 
     def _replace_ev(self, css, ev):
         (prop, val) = split_declaration(ev.declaration)

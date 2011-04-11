@@ -1,8 +1,6 @@
-# TODO RENAME AND REFACTOR AND STUFF!!! THIS FILE SHOULD PROBABLY NOT EXIST BUT
-# IN THE SPIRIT OF THE NULLSOFT: JUST DO IT.
-
 import logging
 from os import path
+from contextlib import contextmanager
 from spritecss.css import CSSParser, print_css
 from spritecss.config import CSSConfig
 from spritecss.finder import find_sprite_refs
@@ -14,16 +12,21 @@ from spritecss.replacer import SpriteReplacer
 
 logger = logging.getLogger(__name__)
 
+# TODO CSSFile should probably fit into the bigger picture
 class CSSFile(object):
-    def __init__(self, fname, evs, conf=None):
+    def __init__(self, fname, conf=None):
         self.fname = fname
-        self.evs = list(evs)
-        self.conf = CSSConfig(self.evs, base=conf, fname=fname)
+        self.conf = conf
+
+    @contextmanager
+    def open_parser(self):
+        with open(self.fname, "rb") as fp:
+            yield CSSParser.read_file(fp)
 
     @classmethod
     def open_file(cls, fname, conf=None):
-        with open(fname, "rb") as fp:
-            return cls(fname, CSSParser.read_file(fp))
+        with cls(fname).open_parser() as p:
+            return cls(fname, conf=CSSConfig(p, base=conf, fname=fname))
 
     @property
     def mapper(self):
@@ -33,8 +36,10 @@ class CSSFile(object):
     def output_fname(self):
         return self.conf.get_css_out(self.fname)
 
-    def iter_sprite_refs(self):
-        return find_sprite_refs(self.evs, conf=self.conf, source=self.fname)
+    def map_sprites(self):
+        with self.open_parser() as p:
+            srefs = find_sprite_refs(p, conf=self.conf, source=self.fname)
+            return self.mapper.map_reduced(srefs)
 
 def main():
     import sys
@@ -50,7 +55,7 @@ def main():
 
     w_ln = lambda t: sys.stderr.write(t + "\n")
 
-    conf = CSSConfig()
+    conf = CSSConfig(base={"padding": (5, 5)})
     css_fs = [CSSFile.open_file(fn, conf=conf) for fn in fnames]
 
     #: holds spritemaps that may be used from any number of css files
@@ -58,8 +63,7 @@ def main():
 
     for css in css_fs:
         w_ln("mapping sprites in source %s" % (css.fname,))
-        css.spritemaps = smaps.map_sprite_refs(css.iter_sprite_refs(),
-                                               mapper=css.mapper)
+        css.spritemaps = smaps.collect(css.map_sprites())
         for sm in css.spritemaps:
             w_ln(" - %s" % (sm.fname,))
 

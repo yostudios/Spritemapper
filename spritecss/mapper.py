@@ -44,6 +44,18 @@ class SpriteDirsMapper(object):
         else:
             return dn
 
+    def map_reduced(self, srefs):
+        "Sort *srefs* into dict with a lists of sprites for each spritemap."""
+        smaps = {}
+        for sref in srefs:
+            fname = self(sref)
+            smap = smaps.get(fname)
+            if smap is None:
+                smap = smaps[fname] = SpriteMap(fname)
+            if sref not in smap:
+                smap.append(sref)
+        return smaps
+
 class SpriteMapCollector(object):
     """Collect spritemap listings from sprite references."""
 
@@ -56,22 +68,7 @@ class SpriteMapCollector(object):
     def __iter__(self):
         return self._maps.itervalues()
 
-    def __getitem__(self, k):
-        return self._maps[k]
-
-    def map_sprite_refs(self, srefs, mapper=None):
-        if mapper is None:
-            mapper = SpriteDirsMapper()
-
-        smaps = {}
-        for sref in srefs:
-            fname = mapper(sref)
-            smap = smaps.get(fname)
-            if smap is None:
-                smap = smaps[fname] = SpriteMap(fname)
-            if sref not in smap:
-                smap.append(sref)
-    
+    def collect(self, smaps):
         for fname, smap in smaps.iteritems():
             if fname in self._maps:
                 self._maps[fname].extend(smap)
