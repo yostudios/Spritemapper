@@ -55,8 +55,8 @@ class CSSConfig(object):
         sdirs = self.sprite_dirs
         if base and sdirs:
             return (urljoin(base, sdir) for sdir in sdirs)
-        else:
-            return sdirs
+    def is_mapping_recursive(self):
+        return bool(self._data.get("recursive"))
 
     @property
     def padding(self):

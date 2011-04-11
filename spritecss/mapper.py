@@ -15,8 +15,8 @@ class SpriteDirsMapper(object):
 
     @classmethod
     def from_conf(cls, conf):
-        # TODO Make recursion a configurable option.
         return cls(conf.sprite_dirs,
+                   recursive=conf.is_mapping_recursive,
                    translate=conf.get_spritemap_out)
 
     def _map_sprite_ref(self, sref):
