@@ -62,6 +62,11 @@ class CSSConfig(object):
         return map(self.normpath, sdirs)
 
     @property
+    def output_image(self):
+        if "output_image" in self._data:
+            return self.normpath(self._data["output_image"])
+
+    @property
     def is_mapping_recursive(self):
         rv = self._data.get("recursive")
         if rv and self._data.get("output_image"):
@@ -83,7 +88,7 @@ class CSSConfig(object):
     def get_spritemap_out(self, dn):
         "Get output image filename for spritemap directory *dn*."
         if "output_image" in self._data:
-            return self.normpath(self._data["output_image"])
+            return self.output_image
         return dn + ".png"
 
     def get_spritemap_url(self, fname):

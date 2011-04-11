@@ -5,10 +5,51 @@ from spritecss.config import CSSConfig
 
 logger = logging.getLogger(__name__)
 
-class SpriteDirsMapper(object):
+class BaseMapper(object):
+    def __call__(self, sprite):
+        try:
+            dn = self._map_sprite_ref(sprite)
+        except LookupError:
+            return
+        else:
+            if self.translate:
+                return self.translate(dn)
+            else:
+                return dn
+
+    def map_reduced(self, srefs):
+        "Sort *srefs* into dict with a lists of sprites for each spritemap."""
+        smaps = {}
+        for sref in srefs:
+            fname = self(sref)
+            smap = smaps.get(fname)
+            if smap is None:
+                smap = smaps[fname] = SpriteMap(fname)
+            if sref not in smap:
+                smap.append(sref)
+        return smaps
+
+class OutputImageMapper(BaseMapper):
+    """Maps all sprites to a single output spritemap."""
+
+    def __init__(self, fname, translate=None):
+        self.fname = fname
+        self.translate = translate
+
+    @classmethod
+    def from_conf(cls, conf):
+        return cls(conf.output_image,
+                   translate=conf.get_spritemap_out)
+
+    def _map_sprite_ref(self, sref):
+        return self.fname
+
+class SpriteDirsMapper(BaseMapper):
     """Maps sprites to spritemaps by using the sprite directory."""
 
     def __init__(self, sprite_dirs=None, recursive=True, translate=None):
+        if not sprite_dirs and not recursive:
+            raise ValueError("must be recursive if no sprite_dirs are set")
         self.sprite_dirs = sprite_dirs
         self.recursive = recursive
         self.translate = translate
@@ -24,37 +65,23 @@ class SpriteDirsMapper(object):
             return path.dirname(sref.fname)
 
         for sdir in self.sprite_dirs:
-            prefix = path.commonprefix((sdir, sref.fname))
+            prefix = path.commonprefix((sdir, path.dirname(str(sref))))
             if prefix == sdir:
                 if self.recursive:
-                    submap = path.dirname(path.relpath(sref.fname, sdir))
+                    submap = path.dirname(path.relpath(str(sref), sdir))
                     if submap:
                         return path.join(sdir, submap)
                 return sdir
-        else:
-            raise LookupError(sref)
 
-    def __call__(self, sprite):
-        try:
-            dn = self._map_sprite_ref(sprite)
-        except LookupError:
-            logger.info("not mapping %r", sprite)
-        if self.translate:
-            return self.translate(dn)
-        else:
-            return dn
+        raise LookupError
 
-    def map_reduced(self, srefs):
-        "Sort *srefs* into dict with a lists of sprites for each spritemap."""
-        smaps = {}
-        for sref in srefs:
-            fname = self(sref)
-            smap = smaps.get(fname)
-            if smap is None:
-                smap = smaps[fname] = SpriteMap(fname)
-            if sref not in smap:
-                smap.append(sref)
-        return smaps
+def mapper_from_conf(conf):
+    if conf.output_image:
+        assert not conf.is_mapping_recursive
+        cls = OutputImageMapper
+    else:
+        cls = SpriteDirsMapper
+    return cls.from_conf(conf)
 
 class SpriteMapCollector(object):
     """Collect spritemap listings from sprite references."""

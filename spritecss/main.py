@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from spritecss.css import CSSParser, print_css
 from spritecss.config import CSSConfig
 from spritecss.finder import find_sprite_refs
-from spritecss.mapper import SpriteMapCollector, SpriteDirsMapper
+from spritecss.mapper import SpriteMapCollector, mapper_from_conf
 from spritecss.packing import PackedBoxes, print_packed_size
 from spritecss.packing.sprites import open_sprites
 from spritecss.stitch import stitch
@@ -33,7 +33,7 @@ class CSSFile(object):
 
     @property
     def mapper(self):
-        return SpriteDirsMapper.from_conf(self.conf)
+        return mapper_from_conf(self.conf)
 
     @property
     def output_fname(self):
