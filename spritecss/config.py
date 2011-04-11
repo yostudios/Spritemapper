@@ -76,6 +76,10 @@ class CSSConfig(object):
     def padding(self):
         return self._data.get("padding", (1, 1))
 
+    @property
+    def anneal_steps(self):
+        return self._data.get("anneal_steps", 9200)
+
     def get_spritemap_out(self, dn):
         "Get output image filename for spritemap directory *dn*."
         if "output_image" in self._data:
