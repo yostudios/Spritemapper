@@ -1,6 +1,7 @@
 include README.rst MANIFEST.in setup.py
 recursive-include spritecss *.py
 recursive-include tests *.py
+recursive-include tests/test_css_files/ *.css
 
 include htdocs/runserver.py
 include htdocs/*.html
