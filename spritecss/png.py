@@ -176,7 +176,6 @@ import math
 # http://www.python.org/doc/2.4.4/lib/module-operator.html
 import operator
 import struct
-import sys
 import zlib
 # http://www.python.org/doc/2.4.4/lib/module-warnings.html
 import warnings
@@ -212,19 +211,11 @@ def isarray(x):
     except:
         return False
 
-try:  # see :pyver:old
-    array.tostring
-except:
-    def tostring(row):
-        l = len(row)
-        return struct.pack('%dB' % l, *row)
+if not hasattr(array, "tostring"):
+    tostring = lambda r: "".join(map(chr, r))
 else:
-    def tostring(row):
-        """Convert row of bytes to string.  Expects `row` to be an
-        ``array``.
-        """
-        return row.tostring()
-        
+    tostring = lambda r: r.tostring()
+
 
 def interleave_planes(ipixels, apixels, ipsize, apsize):
     """
@@ -462,7 +453,7 @@ class Writer:
                 return c
             if greyscale:
                 try:
-                    l = len(c)
+                    len(c)
                 except TypeError:
                     c = (c,)
                 if len(c) != 1:
@@ -1381,11 +1372,11 @@ class Reader:
             self.atchunk = None
             data = self.file.read(length)
             if len(data) != length:
-                raise ChunkError('Chunk %s too short for required %i octets.'
+                raise ChunkError('Chunk %r too short for required %i octets.'
                   % (type, length))
             checksum = self.file.read(4)
             if len(checksum) != 4:
-                raise ValueError('Chunk %s too short for checksum.', tag)
+                raise ValueError('Chunk %r too short for checksum.', checksum)
             if seek and type != seek:
                 continue
             verify = zlib.crc32(type)
