@@ -113,13 +113,14 @@ def _map_fnames(fnames):
     from . import SpriteRef
 
     smaps = SpriteMapCollector()
+    mapper = SpriteDirsMapper()
 
     for fname in fnames:
         with sys.stdin if (fname == "-") else open(fname, "rb") as fp:
             (src_fname, srefs) = json.load(fp)
 
         srefs = [SpriteRef(sref, source=src_fname) for sref in srefs]
-        smaps.map_sprite_refs(srefs)
+        smaps.collect(mapper.map_reduced(srefs))
         print >>sys.stderr, "mapped", len(srefs), "sprites in", src_fname
 
     json.dump([(smap.fname, map(str, smap)) for smap in smaps], sys.stdout, indent=2)
