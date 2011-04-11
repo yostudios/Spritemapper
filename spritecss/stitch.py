@@ -56,7 +56,7 @@ class StitchedSpriteNodes(object):
         else:
             return self.iter_empty_rows(n)
 
-def stitch(packed, mode="RGBA"):
+def stitch(packed, mode="RGBA", reusable=False):
     assert mode == "RGBA"  # TODO Support other modes than RGBA
     root = packed.tree
     bd = max(sn.im.bitdepth for (pos, sn) in packed.placements)
@@ -64,6 +64,8 @@ def stitch(packed, mode="RGBA"):
     planes = 3 + int(meta["alpha"])
 
     pixels = StitchedSpriteNodes(root, bitdepth=bd, planes=planes)
+    if reusable:
+        pixels = list(pixels)
     return Image(root.width, root.height, pixels, meta)
 
 def _pack_and_stitch(smap_fn, sprites, conf=None):

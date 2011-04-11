@@ -19,7 +19,9 @@ def iter_css_config(parser):
             yield v
 
 class CSSConfig(object):
-    def __init__(self, parser=None, base=None, root=None):
+    def __init__(self, parser=None, base=None, root=None, fname=None):
+        if fname and root is None:
+            root = path.dirname(fname)
         self.root = root
         self._data = dict(base) if base else {}
         if parser is not None:
@@ -32,11 +34,18 @@ class CSSConfig(object):
     @classmethod
     def from_file(cls, fname):
         with open(fname, "rb") as fp:
-            return cls(CSSParser.from_file(fp), root=path.dirname(fname))
+            return cls(CSSParser.from_file(fp), fname=fname)
 
     def normpath(self, p):
         """Normalize a possibly relative path *p* to the root."""
         return path.normpath(path.join(self.root, p))
+
+    def absurl(self, p):
+        """Make an absolute reference to *p* from any configured base URL."""
+        base = self.base_url
+        if base:
+            p = urljoin(base, p)
+        return p
 
     @property
     def base_url(self):
@@ -46,21 +55,43 @@ class CSSConfig(object):
     def sprite_dirs(self):
         if "sprite_dirs" not in self._data:
             return
+        elif self._data.get("output_image"):
+            raise RuntimeError("cannot have sprite_dirs "
+                               "when output_image is set")
         sdirs = shlex.split(self._data["sprite_dirs"])
         return map(self.normpath, sdirs)
 
     @property
-    def sprite_dir_urls(self):
-        base = self.base_url
-        sdirs = self.sprite_dirs
-        if base and sdirs:
-            return (urljoin(base, sdir) for sdir in sdirs)
     def is_mapping_recursive(self):
-        return bool(self._data.get("recursive"))
+        rv = self._data.get("recursive")
+        if rv and self._data.get("output_image"):
+            raise RuntimeError("cannot have recursive spritemapping "
+                               "when output_image is set")
+        elif rv is None:
+            return not self._data.get("output_image")
+        else:
+            return bool(rv)
 
     @property
     def padding(self):
         return self._data.get("padding", (1, 1))
+
+    def get_spritemap_out(self, dn):
+        "Get output image filename for spritemap directory *dn*."
+        if "output_image" in self._data:
+            return self.normpath(self._data["output_image"])
+        return dn + ".png"
+
+    def get_spritemap_url(self, fname):
+        "Get output image URL for spritemap *fname*."
+        return self.absurl(path.relpath(fname, self.root))
+
+    def get_css_out(self, fname):
+        "Get output image filename for spritemap directory *fname*."
+        if "output_css" in self._data:
+            return self.normpath(self._data["output_css"])
+        (dirn, base) = path.split(fname)
+        return path.join(dirn, "sm_" + base)
 
 def print_config(fname):
     from pprint import pprint

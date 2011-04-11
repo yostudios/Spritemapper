@@ -20,6 +20,14 @@ class SpriteMap(list):
         self.fname = fname
         super(SpriteMap, self).__init__(L)
 
+    def __hash__(self):
+        return hash(self.fname)
+
+    def __eq__(self, o):
+        if hasattr(o, "fname"):
+            return o.fname == self.fname
+        return NotImplemented
+
 class SpriteRef(object):
     """Reference to a sprite, existent or not."""
 

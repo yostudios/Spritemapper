@@ -1,41 +1,48 @@
 /*
   # optional configuration
 
-  # `base_url` says from where to serve the spritemaps.
-  # if not set, uses relative paths.
-  spritemapper.base_url = http://example.com/static/css/
+  # `base_url` is a url at which the resulting css
+  # and image files can be reached.
+  # if not set, uses file-relative paths (recommended).
+  #spritemapper.base_url = http://example.com/static/css/
 
-  # `sprite_folders` is a comma separated list of folders within which
-  # to create spritemaps. the named folders and their subdirectories are
-  # all spritemapped (if there are sprites used in those directories).
-  # by default, all top-level directories are used.
+  # `sprite_folders` is a list of folders within which to create
+  # spritemaps. the named folders and their subdirectories are all
+  # spritemapped (if there are sprites used in those directories). by
+  # default, all top-level directories are used.
   spritemapper.sprite_dirs = ../img/example-sprite
 
-  # `output_file` is the name of output css file.
-  # defaults to "sm_" + current filename
-  spritemapper.output_file = example.css
+  # `output_css` sets the name for the rewritten css file.
+  # defaults to sm_{filename}
+  spritemapper.output_css = example.css
+
+  # `output_image` is the name of output spritemap image.
+  # sprite_dirs is incompatible with this because both tell the
+  # spritemapper how to map sprites to spritemaps.
+  # by default, <dir>.png
+  #spritemapper.output_image = ../img/sm.png
 */
 
 .mysprite1 {
   background: url(../img/example-sprite/image1.png);
-  width: 103px;
+  width: 85px;
   height: 46px;
 }
 
 .mysprite2 {
   background: url(../img/example-sprite/image2.png);
-  width: 95px;
-  height: 102px;
+  width: 143px;
+  height: 218px;
 }
 
 .mysprite3 {
   background: url(../img/example-sprite/image3.png);
-  width: 103px;
-  height: 46px;
+  width: 85px;
+  height: 88px;
 }
 
 .mysprite4 {
   background: url(../img/example-sprite/image4.png);
-  width: 103px;
+  width: 85px;
   height: 46px;
 }

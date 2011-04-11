@@ -3,82 +3,38 @@
 
 import logging
 from os import path
-from spritecss import SpriteMap
-from spritecss.css import CSSParser
-from spritecss.finder import find_sprite_refs
+from spritecss.css import CSSParser, print_css
 from spritecss.config import CSSConfig
+from spritecss.finder import find_sprite_refs
+from spritecss.mapper import SpriteMapCollector, SpriteDirsMapper
+from spritecss.packing import PackedBoxes, print_packed_size
+from spritecss.packing.sprites import open_sprites
+from spritecss.stitch import stitch
+from spritecss.replacer import SpriteReplacer
 
 logger = logging.getLogger(__name__)
 
-class SpriteDirsCategorizer(object):
-    def __init__(self, sprite_dirs, recursive=True):
-        self.sprite_dirs = sprite_dirs
-        self.recursive = recursive
-        self._maps = {}
+class CSSFile(object):
+    def __init__(self, fname, evs, conf=None):
+        self.fname = fname
+        self.evs = list(evs)
+        self.conf = CSSConfig(self.evs, base=conf, fname=fname)
 
     @classmethod
-    def from_conf(cls, conf):
-        # TODO Make recursion a configurable option.
-        return cls(conf.sprite_dirs or [""])
-
-    def _map_sprite_ref(self, sref):
-        for sdir in self.sprite_dirs:
-            prefix = path.commonprefix((sdir, sref.fname))
-            if prefix == sdir:
-                if self.recursive:
-                    submap = path.dirname(path.relpath(sref.fname, sdir))
-                    if submap:
-                        return path.join(sdir, submap)
-                return sdir
-        raise ReferenceError
-
-    def __call__(self, sprite):
-        try:
-            sdir = self._map_sprite_ref(sprite)
-        except ReferenceError:
-            logger.info("not mapping %r", sprite)
-        else:
-            smap = self._maps.setdefault(sdir, SpriteMap(sdir))
-            smap.append(sprite)
-
-    def __iter__(self):
-        return self._maps.itervalues()
-
-class SpriteMapCollector(object):
-    """Collect spritemap listings from sprite references."""
-
-    def __init__(self, conf=None):
-        if conf is None:
-            conf = CSSConfig()
-        self.conf = conf
-        self._maps = []
-
-    def __iter__(self):
-        return iter(self._maps)
-
-    def collect_fname(self, fname):
+    def open_file(cls, fname, conf=None):
         with open(fname, "rb") as fp:
-            parser = CSSParser.read_file(fp)
-            evs = list(parser.iter_events())
-        conf = CSSConfig(evs, base=self.conf, root=path.dirname(fname))
-        srefs = find_sprite_refs(evs, source=fname, conf=conf)
-        categorizer = SpriteDirsCategorizer.from_conf(conf)
-        for sref in srefs:
-            categorizer(sref)
-        self._maps.extend(categorizer)
+            return cls(fname, CSSParser.read_file(fp))
 
-def collect(fnames, conf=None):
-    smaps = SpriteMapCollector(conf=conf)
-    for fname in fnames:
-        smaps.collect_fname(fname)
-    return smaps
+    @property
+    def mapper(self):
+        return SpriteDirsMapper.from_conf(self.conf)
 
-def print_sprite_maps(fnames):
-    for smap in sorted(collect(fnames), key=lambda sm: sm.fname):
-        print smap.fname
-        for sref in smap:
-            print "-", sref
-        print
+    @property
+    def output_fname(self):
+        return self.conf.get_css_out(self.fname)
+
+    def iter_sprite_refs(self):
+        return find_sprite_refs(self.evs, conf=self.conf, source=self.fname)
 
 def main():
     import sys
@@ -89,10 +45,41 @@ def main():
     fnames = sys.argv[1:]
     if not fnames:
         src_dir = path.join(path.dirname(__file__), "..")
-        example_fn = "ext/Spritemapper/css/example_source.css"
+        example_fn = "htdocs/css/example_source.css"
         fnames = [path.normpath(path.join(src_dir, example_fn))]
 
-    print_sprite_maps(fnames)
+    w_ln = lambda t: sys.stderr.write(t + "\n")
+
+    conf = CSSConfig()
+    css_fs = [CSSFile.open_file(fn, conf=conf) for fn in fnames]
+
+    #: holds spritemaps that may be used from any number of css files
+    smaps = SpriteMapCollector(conf=conf)
+
+    for css in css_fs:
+        w_ln("mapping sprites in source %s" % (css.fname,))
+        css.spritemaps = smaps.map_sprite_refs(css.iter_sprite_refs(),
+                                               mapper=css.mapper)
+        for sm in css.spritemaps:
+            w_ln(" - %s" % (sm.fname,))
+
+    for smap in smaps:
+        with open_sprites(smap, pad=conf.padding) as sprites:
+            w_ln("packing sprites in mapping %s" % (smap.fname,))
+            packed = PackedBoxes(sprites)
+            print_packed_size(packed)
+            smap.placements = packed.placements
+
+            w_ln("writing spritemap image at %s" % (smap.fname,))
+            im = stitch(packed)
+            with open(smap.fname, "wb") as fp:
+                im.save(fp)
+
+    replacer = SpriteReplacer([(sm, sm.placements) for sm in smaps])
+    for css in css_fs:
+        w_ln("writing new css at %s" % (css.output_fname,))
+        with open(css.output_fname, "wb") as fp:
+            print_css(replacer(css), out=fp)
 
 if __name__ == "__main__":
     main()

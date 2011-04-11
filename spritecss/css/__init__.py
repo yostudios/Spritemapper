@@ -5,10 +5,11 @@
 # Some kind of BSD license, contact above e-mail for more information on
 # matters of licensing.
 
-from .parser import CSSParser
-from itertools import ifilter
+from .parser import CSSParser, print_css
+from itertools import ifilter, imap
 
-__all__ = ["CSSParser", "iter_events", "iter_declarations"]
+__all__ = ["CSSParser", "iter_events", "split_declaration",
+           "print_css", "iter_declarations"]
 
 def iter_events(parser, lexemes=None, predicate=None):
     if lexemes and predicate:
@@ -17,12 +18,14 @@ def iter_events(parser, lexemes=None, predicate=None):
         predicate = lambda e: e.lexeme in lexemes
     return ifilter(predicate, iter(parser))
 
+def split_declaration(decl):
+    parts = decl.split(":", 1)
+    if len(parts) == 1:
+        return (parts[0], None)
+    else:
+        (prop, val) = parts
+        return (prop, val)
+
 def iter_declarations(parser, predicate=None):
-    for event in iter_events(parser, lexemes=("declaration",)):
-        decl = event.declaration
-        parts = decl.split(":", 1)
-        if len(parts) == 1:
-            yield (parts[0], None)
-        else:
-            (prop, val) = map(str.strip, parts)
-            yield (prop, val)
+    evs = iter_events(parser, lexemes=("declaration",))
+    return imap(split_declaration, evs)

@@ -89,13 +89,13 @@ class SpriteMapCollector(object):
             parser = CSSParser.read_file(fp)
             evs = list(parser.iter_events())
 
-        conf = CSSConfig(evs, base=self.conf, root=path.dirname(fname))
+        conf = CSSConfig(evs, base=self.conf, fname=fname)
         srefs = find_sprite_refs(evs, source=fname, conf=conf)
 
         if mapper is None:
             mapper = SpriteDirsMapper.from_conf(conf)
 
-        self.map_sprite_refs(srefs, mapper=mapper)
+        return self.map_sprite_refs(srefs, mapper=mapper)
 
 def print_spritemaps(smaps):
     for smap in sorted(smaps, key=lambda sm: sm.fname):

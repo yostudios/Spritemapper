@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 
 from ..image import Image
-from . import Rect, PackedBoxes, print_packed_size
+from . import Rect
 
 class SpriteNode(Rect):
     def __init__(self, im, width, height, fname=None, pad=(0, 0)):
@@ -38,7 +38,7 @@ class SpriteNode(Rect):
 
 @contextmanager
 def open_sprites(fnames, **kwds):
-    fs = [(fn, open(fn, "rb")) for fn in fnames]
+    fs = [(fn, open(str(fn), "rb")) for fn in fnames]
     try:
         yield [SpriteNode.load_file(fo, fname=fn, **kwds) for (fn, fo) in fs]
     finally:

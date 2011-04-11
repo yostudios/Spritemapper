@@ -540,13 +540,13 @@ def iter_print_css(parser):
         else:
             raise RuntimeError("unknown event %s" % (event,))
 
-def print_css(parser, fp=sys.stdout):
+def print_css(parser, out=sys.stdout):
     """Print an event stream of CSS parser events."""
     for data in iter_print_css(parser):
-        fp.write(data)
+        out.write(data)
 
 def main():
-    print_css(CSSParser.read_file(sys.stdin), fp=sys.stdout)
+    print_css(CSSParser.read_file(sys.stdin), out=sys.stdout)
 
 if __name__ == "__main__":
     main()
