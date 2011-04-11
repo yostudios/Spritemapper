@@ -1,6 +1,9 @@
+import sys
 import logging
+import optparse
 from os import path
 from contextlib import contextmanager
+
 from spritecss.css import CSSParser, print_css
 from spritecss.config import CSSConfig
 from spritecss.finder import find_sprite_refs
@@ -41,24 +44,21 @@ class CSSFile(object):
             srefs = find_sprite_refs(p, conf=self.conf, source=self.fname)
             return self.mapper.map_reduced(srefs)
 
-def main():
-    import sys
-    import logging
+class InMemoryCSSFile(CSSFile):
+    def __init__(self, *a, **k):
+        sup = super(InMemoryCSSFile, self)
+        sup.__init__(*a, **k)
+        with sup.open_parser() as p:
+            self._evs = list(p)
 
-    logging.basicConfig(level=logging.DEBUG)
+    @contextmanager
+    def open_parser(self):
+        yield self._evs
 
-    fnames = sys.argv[1:]
-    if not fnames:
-        src_dir = path.join(path.dirname(__file__), "..")
-        example_fn = "htdocs/css/example_source.css"
-        fnames = [path.normpath(path.join(src_dir, example_fn))]
+def spritemap(css_fs, conf=None, out=sys.stderr):
+    w_ln = lambda t: out.write(t + "\n")
 
-    w_ln = lambda t: sys.stderr.write(t + "\n")
-
-    conf = CSSConfig(base={"padding": (5, 5)})
-    css_fs = [CSSFile.open_file(fn, conf=conf) for fn in fnames]
-
-    #: holds spritemaps that may be used from any number of css files
+    #: sum of all spritemaps used from any css files
     smaps = SpriteMapCollector(conf=conf)
 
     for css in css_fs:
@@ -70,7 +70,7 @@ def main():
     for smap in smaps:
         with open_sprites(smap, pad=conf.padding) as sprites:
             w_ln("packing sprites in mapping %s" % (smap.fname,))
-            packed = PackedBoxes(sprites)
+            packed = PackedBoxes(sprites, anneal_steps=conf.anneal_steps)
             print_packed_size(packed)
             smap.placements = packed.placements
 
@@ -84,6 +84,41 @@ def main():
         w_ln("writing new css at %s" % (css.output_fname,))
         with open(css.output_fname, "wb") as fp:
             print_css(replacer(css), out=fp)
+
+op = optparse.OptionParser()
+op.add_option("--padding", type=int, default=1,
+              help="Pixels of padding between sprites (default: 1)")
+op.add_option("--in-memory", action="store_true",
+              help="Keep CSS parsing results in memory")
+op.add_option("--anneal", type=int, default=9200,
+              help="Simulated anneal steps (default: 9200)")
+op.add_option("--selftest", action="store_true", help="Run self-test")
+
+def main():
+    logging.basicConfig(level=logging.DEBUG)
+
+    (opts, args) = op.parse_args()
+
+    fnames = list(args)
+    base = {}
+
+    if opts.selftest:
+        src_dir = path.join(path.dirname(__file__), "..")
+        example_fn = "htdocs/css/example_source.css"
+        fnames = [path.normpath(path.join(src_dir, example_fn))]
+    elif not fnames:
+        op.error("you must provide at least one css file")
+
+    base["anneal_steps"] = opts.anneal
+    base["padding"] = (opts.padding, opts.padding)
+
+    if opts.in_memory:
+        css_cls = InMemoryCSSFile
+    else:
+        css_cls = CSSFile
+
+    conf = CSSConfig(base=base)
+    spritemap([css_cls.open_file(fn, conf=conf) for fn in fnames], conf=conf)
 
 if __name__ == "__main__":
     main()
