@@ -92,7 +92,6 @@ op.add_option("--in-memory", action="store_true",
               help="Keep CSS parsing results in memory")
 op.add_option("--anneal", type=int, default=9200,
               help="Simulated anneal steps (default: 9200)")
-op.add_option("--selftest", action="store_true", help="Run self-test")
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
@@ -100,17 +99,13 @@ def main():
     (opts, args) = op.parse_args()
 
     fnames = list(args)
-    base = {}
 
-    if opts.selftest:
-        src_dir = path.join(path.dirname(__file__), "..")
-        example_fn = "htdocs/css/example_source.css"
-        fnames = [path.normpath(path.join(src_dir, example_fn))]
-    elif not fnames:
+    if not fnames:
         op.error("you must provide at least one css file")
 
-    base["anneal_steps"] = opts.anneal
-    base["padding"] = (opts.padding, opts.padding)
+    base = {"anneal_steps": opts.anneal}
+    if opts.padding:
+        base["padding"] = (opts.padding, opts.padding)
 
     if opts.in_memory:
         css_cls = InMemoryCSSFile
