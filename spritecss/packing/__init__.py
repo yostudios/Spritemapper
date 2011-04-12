@@ -146,8 +146,8 @@ class PackingAnnealer(Annealer):
         # self.move, self.energy need not be set: the class methods are fine.
         self.boxes = boxes
         self.optimal_size = sum(b.outer_area for b in boxes)
-        self.max_size = (sum(b.width for b in boxes),
-                         sum(b.height for b in boxes))
+        self.max_size = (sum(b.outer_width for b in boxes),
+                         sum(b.outer_height for b in boxes))
 
     def move(self, state):
         a, b = random.sample(xrange(len(state)), 2)
