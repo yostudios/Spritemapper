@@ -24,25 +24,25 @@
 */
 
 .mysprite1 {
-  background: url(../img/example-sprite.png) no-repeat 0 0;
+  background: url('../img/example-sprite.png') no-repeat 0 -47px;
   width: 85px;
   height: 46px;
 }
 
 .mysprite2 {
-  background: url(../img/example-sprite.png) no-repeat -88px 0;
+  background: url('../img/example-sprite.png') no-repeat -86px 0;
   width: 143px;
   height: 218px;
 }
 
 .mysprite3 {
-  background: url(../img/example-sprite.png) no-repeat 0 -50px;
+  background: url('../img/example-sprite.png') no-repeat 0 -94px;
   width: 85px;
   height: 88px;
 }
 
 .mysprite4 {
-  background: url(../img/example-sprite.png) no-repeat 0 -142px;
+  background: url('../img/example-sprite.png') no-repeat 0 0;
   width: 85px;
   height: 46px;
 }
