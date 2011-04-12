@@ -66,6 +66,9 @@ def spritemap(css_fs, conf=None, out=sys.stderr):
         for sm in smaps.collect(css.map_sprites()):
             w_ln(" - %s" % (sm.fname,))
 
+    # Weed out single-image spritemaps (these make no sense.)
+    smaps = [sm for sm in smaps if len(sm) > 1]
+
     sm_plcs = []
     for smap in smaps:
         with open_sprites(smap, pad=conf.padding) as sprites:
