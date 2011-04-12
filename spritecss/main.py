@@ -89,34 +89,44 @@ def spritemap(css_fs, conf=None, out=sys.stderr):
             print_css(replacer(css), out=fp)
 
 op = optparse.OptionParser()
-op.add_option("--padding", type=int, default=1,
-              help="Pixels of padding between sprites (default: 1)")
+op.set_usage("%prog [opts] <css file(s) ...>")
+op.add_option("-c", "--conf", metavar="INI",
+              help="read base configuration from INI")
+op.add_option("--padding", type=int, metavar="N",
+              help="have N pixels of padding between sprites")
 op.add_option("--in-memory", action="store_true",
-              help="Keep CSS parsing results in memory")
-op.add_option("--anneal", type=int, default=9200,
-              help="Simulated anneal steps (default: 9200)")
+              help="keep CSS parsing results in memory")
+op.add_option("--anneal", type=int, metavar="N", default=9200,
+              help="simulated anneal steps (default: 9200)")
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
 
     (opts, args) = op.parse_args()
 
-    fnames = list(args)
-
-    if not fnames:
+    if not args:
         op.error("you must provide at least one css file")
-
-    base = {"anneal_steps": opts.anneal}
-    if opts.padding:
-        base["padding"] = (opts.padding, opts.padding)
 
     if opts.in_memory:
         css_cls = InMemoryCSSFile
     else:
         css_cls = CSSFile
 
+    base = {}
+
+    if opts.conf:
+        from ConfigParser import ConfigParser
+        cp = ConfigParser()
+        with open(opts.conf) as fp:
+            cp.readfp(fp)
+        base.update(cp.items("spritemapper"))
+    if opts.anneal:
+        base["anneal_steps"] = opts.anneal
+    if opts.padding:
+        base["padding"] = (opts.padding, opts.padding)
+
     conf = CSSConfig(base=base)
-    spritemap([css_cls.open_file(fn, conf=conf) for fn in fnames], conf=conf)
+    spritemap([css_cls.open_file(fn, conf=conf) for fn in args], conf=conf)
 
 if __name__ == "__main__":
     main()
