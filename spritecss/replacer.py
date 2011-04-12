@@ -30,8 +30,11 @@ class SpriteReplacer(object):
             else:
                 sref = SpriteRef(css.conf.normpath(url),
                                  source=css.fname)
-                val = self._replace_val(css, ev, sref)
-                ev.declaration = "%s: %s" % (prop, val)
+                try:
+                    new = self._replace_val(css, ev, sref)
+                except KeyError:
+                    new = val
+                ev.declaration = "%s: %s" % (prop, new)
         return ev
 
     def _replace_val(self, css, ev, sref):
