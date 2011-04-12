@@ -63,23 +63,23 @@ def spritemap(css_fs, conf=None, out=sys.stderr):
 
     for css in css_fs:
         w_ln("mapping sprites in source %s" % (css.fname,))
-        css.spritemaps = smaps.collect(css.map_sprites())
-        for sm in css.spritemaps:
+        for sm in smaps.collect(css.map_sprites()):
             w_ln(" - %s" % (sm.fname,))
 
+    sm_plcs = []
     for smap in smaps:
         with open_sprites(smap, pad=conf.padding) as sprites:
             w_ln("packing sprites in mapping %s" % (smap.fname,))
             packed = PackedBoxes(sprites, anneal_steps=conf.anneal_steps)
             print_packed_size(packed)
-            smap.placements = packed.placements
+            sm_plcs.append((smap, packed.placements))
 
             w_ln("writing spritemap image at %s" % (smap.fname,))
             im = stitch(packed)
             with open(smap.fname, "wb") as fp:
                 im.save(fp)
 
-    replacer = SpriteReplacer([(sm, sm.placements) for sm in smaps])
+    replacer = SpriteReplacer(sm_plcs)
     for css in css_fs:
         w_ln("writing new css at %s" % (css.output_fname,))
         with open(css.output_fname, "wb") as fp:

@@ -4,13 +4,13 @@ from . import SpriteRef
 from .css import split_declaration
 from .finder import NoSpriteFound, get_background_url
 
-def _build_pos_map(smap):
+def _build_pos_map(smap, placements):
     """Build a dict of sprite ref => pos."""
-    return dict((n.fname, p) for (p, n) in smap.placements)
+    return dict((n.fname, p) for (p, n) in placements)
 
 class SpriteReplacer(object):
     def __init__(self, spritemaps):
-        self._smaps = dict((sm.fname, _build_pos_map(sm))
+        self._smaps = dict((sm.fname, _build_pos_map(sm, plcs))
                            for (sm, plcs) in spritemaps)
 
     def __call__(self, css):
