@@ -93,7 +93,7 @@ class SpriteMapCollector(object):
         self._maps = {}
 
     def __iter__(self):
-        return self._maps.itervalues()
+        return (self._maps[k] for k in self._maps if k is not None)
 
     @property
     def unmapped_spriterefs(self):
