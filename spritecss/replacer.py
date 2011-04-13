@@ -39,8 +39,8 @@ class SpriteReplacer(object):
 
     def _replace_val(self, css, ev, sref):
         sm_fn = css.mapper(sref)
-        sm_url = css.conf.get_spritemap_url(sm_fn)
         pos = self._smaps[sm_fn][sref]
+        sm_url = css.conf.get_spritemap_url(sm_fn)
 
         parts = ["url('%s')" % (sm_url,), "no-repeat"]
         for r in pos:
