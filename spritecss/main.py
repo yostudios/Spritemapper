@@ -1,7 +1,8 @@
 import sys
 import logging
 import optparse
-from os import path
+from os import path, access, R_OK
+from itertools import ifilter
 from contextlib import contextmanager
 
 from spritecss.css import CSSParser, print_css
@@ -42,7 +43,12 @@ class CSSFile(object):
     def map_sprites(self):
         with self.open_parser() as p:
             srefs = find_sprite_refs(p, conf=self.conf, source=self.fname)
-            return self.mapper.map_reduced(srefs)
+            def test_sref(sref):
+                if not access(str(sref), R_OK):
+                    logger.error("%s: not readable", sref); return False
+                else:
+                    logger.debug("%s passed", sref); return True
+            return self.mapper.map_reduced(ifilter(test_sref, srefs))
 
 class InMemoryCSSFile(CSSFile):
     def __init__(self, *a, **k):
