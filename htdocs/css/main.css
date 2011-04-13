@@ -20,24 +20,107 @@ body {
 
 header {
   position: relative;
-  height: 80px;
+  height: 89px;
+  margin: 40px auto !important;
 }
 
 header h1 {
+  position: relative;
   background: url(../img/sprites/spritemapper.png);
   width: 305px;
   height: 48px;
+  top: 18px;
   text-indent: -999px;
   overflow: hidden;
-  margin-top: 40px;
+  -webkit-animation-name: logo-text;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-delay: .1s;
 }
 
 header p {
+  background: url(../img/sprites/apa.png);
   position: absolute;
   font-size: 12px;
-  left: 50px;
-  top: 45px;
+  left: 159px;
+  top: 64px;
+  -webkit-animation-name: logo-subtext;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-delay: .8s;
 }
+
+header .icon {
+  margin-right: 18px;
+}
+
+.icon {
+  display: block;
+  position: relative;
+  float: left;
+  width: 89px;
+  height: 89px;
+}
+
+.icon span {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  -webkit-animation-name: icon-1;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-delay: .5s;
+}
+
+.icon .part1 {
+  background: url(../img/sprites/logo_01.png);
+  width: 58px;
+  height: 59px;
+}
+
+.icon .part2 {
+  background: url(../img/sprites/logo_02.png);
+  width: 30px;
+  height: 30px;
+  left: 58px;
+  -webkit-animation-name: icon-2;
+}
+
+.icon .part3 {
+  background: url(../img/sprites/logo_03.png);
+  width: 30px;
+  height: 59px;
+  left: 58px;
+  top: 30px;
+  -webkit-animation-name: icon-3;
+}
+
+.icon .part4 {
+  background: url(../img/sprites/logo_04.png);
+  width: 29px;
+  height: 30px;
+  top: 59px;
+  -webkit-animation-name: icon-4;
+}
+
+.icon .part5 {
+  background: url(../img/sprites/logo_05.png);
+  width: 29px;
+  height: 30px;
+  top: 59px;
+  left: 29px;
+  -webkit-animation-name: icon-5;
+}
+
+
+
+
 
 pre.code {
   background: #fff;
@@ -164,4 +247,40 @@ section h3 {
 
 .die p .browser a {
   margin: 0 2px;
+}
+
+@-webkit-keyframes icon-1 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(-25px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-2 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(25px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-3 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(25px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-4 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(-25px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-5 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(0px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes logo-text {
+  0% { opacity: 0; -webkit-transform: translate(0px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes logo-subtext {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+
 }
