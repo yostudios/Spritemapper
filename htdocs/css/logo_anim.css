@@ -1,0 +1,35 @@
+@-webkit-keyframes icon-1 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(-25px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-2 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(25px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-3 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(25px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-4 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(-25px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes icon-5 {
+  0% { opacity: 0; -webkit-transform: scale(1.5) translate(0px, 25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes logo-text {
+  0% { opacity: 0; -webkit-transform: translate(0px, -25px); }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes logo-subtext {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+
+}
