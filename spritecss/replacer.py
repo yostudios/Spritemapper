@@ -1,8 +1,12 @@
 "Replaces references to sprites with offsetted background declarations."
 
+import logging
+
 from . import SpriteRef
 from .css import split_declaration
 from .finder import NoSpriteFound, get_background_url
+
+logger = logging.getLogger(__name__)
 
 def _build_pos_map(smap, placements):
     """Build a dict of sprite ref => pos."""
@@ -41,6 +45,8 @@ class SpriteReplacer(object):
         sm_fn = css.mapper(sref)
         pos = self._smaps[sm_fn][sref]
         sm_url = css.conf.get_spritemap_url(sm_fn)
+        logger.debug("replace bg %s at L%d with spritemap %s at %s",
+                     sref, ev.state.token.line_no, sm_url, pos)
 
         parts = ["url('%s')" % (sm_url,), "no-repeat"]
         for r in pos:
