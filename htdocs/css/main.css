@@ -33,12 +33,7 @@ header h1 {
   top: 18px;
   text-indent: -999px;
   overflow: hidden;
-  -webkit-animation-name: logo-text;
-  -webkit-animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: both;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-duration: 0.3s;
-  -webkit-animation-delay: .1s;
+  -webkit-animation: logo-text .3s .1s 1 ease-out backwards;
 }
 
 header p {
@@ -47,12 +42,7 @@ header p {
   font-size: 12px;
   left: 159px;
   top: 64px;
-  -webkit-animation-name: logo-subtext;
-  -webkit-animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: both;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-duration: 0.5s;
-  -webkit-animation-delay: .8s;
+  -webkit-animation: logo-subtext .5s .8s 1 ease-out backwards;
 }
 
 header .icon {
@@ -71,18 +61,14 @@ header .icon {
   display: block;
   position: absolute;
   top: 0; left: 0;
-  -webkit-animation-name: icon-1;
-  -webkit-animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: both;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-duration: 0.5s;
-  -webkit-animation-delay: .5s;
+  -webkit-animation: .5s .5s 1 ease-out backwards;
 }
 
 .icon .part1 {
   background: url(../img/sprites/logo_01.png);
   width: 58px;
   height: 59px;
+  -webkit-animation-name: icon-1;
 }
 
 .icon .part2 {
@@ -118,10 +104,6 @@ header .icon {
   left: 29px;
   -webkit-animation-name: icon-5;
 }
-
-
-
-
 
 pre.code {
   background: #fff;
@@ -174,7 +156,6 @@ pre.code {
   font-weight: bold;
 }
 
-
 section h2 {
   font-size: 33px;
   text-indent: 10px;
@@ -212,9 +193,6 @@ section h3 {
   padding: 10px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
 }
-
-
-
 
 .die {
   background: #600019;
@@ -283,5 +261,4 @@ section h3 {
 @-webkit-keyframes logo-subtext {
   0% { opacity: 0; }
   100% { opacity: 1; }
-
 }
