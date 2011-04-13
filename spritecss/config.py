@@ -97,10 +97,14 @@ class CSSConfig(object):
 
     def get_css_out(self, fname):
         "Get output image filename for spritemap directory *fname*."
-        if "output_css" in self._data:
-            return self.normpath(self._data["output_css"])
         (dirn, base) = path.split(fname)
-        return path.join(dirn, "sm_" + base)
+        if "output_css" in self._data:
+            (base, ext) = path.splitext(base)
+            names = dict(filename=fname, dirname=dirn,
+                         basename=base, extension=ext)
+            return self.normpath(self._data["output_css"].format(**names))
+        else:
+            return path.join(dirn, "sm_" + base)
 
 def print_config(fname):
     from pprint import pprint
