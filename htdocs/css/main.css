@@ -49,6 +49,17 @@ header .icon {
   margin-right: 18px;
 }
 
+a.fork {
+  display: block;
+  background: url(../img/sprites/fork_me_on_github.png);
+  position: absolute;
+  top: 0; right: 0;
+  width: 149px;
+  height: 149px;
+  text-indent: -999px;
+  overflow: hidden;
+}
+
 .icon {
   display: block;
   position: relative;
