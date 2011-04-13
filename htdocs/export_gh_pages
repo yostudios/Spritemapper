@@ -1,10 +1,11 @@
 #!/bin/sh
 # Export htdocs/ from the current HEAD to the gh-pages branch.
 
-SOURCE=HEAD:htdocs
+SOURCE=htdocs
 TARGET=gh-pages
 
-HTDOCS_TREE_HASH=`echo ${SOURCE} | git cat-file --batch-check | cut -c -40`
-HTDOCS_COMMIT=`echo 'Placeholder commit for gh-pages' | git commit-tree ${HTDOCS_TREE_HASH}`
+HTDOCS_TREE=`git write-tree --prefix=${SOURCE}`
+HTDOCS_COMMIT=`echo 'Placeholder commit for gh-pages' | git commit-tree ${HTDOCS_TREE}`
 
-exec git branch -f ${TARGET} ${HTDOCS_COMMIT}
+git cat-file commit "$HTDOCS_COMMIT"
+git branch -f ${TARGET} ${HTDOCS_COMMIT}
