@@ -100,6 +100,8 @@ op.add_option("-c", "--conf", metavar="INI",
               help="read base configuration from INI")
 op.add_option("--padding", type=int, metavar="N",
               help="keep N pixels of padding between sprites")
+op.add_option("-v", "--verbose", action="store_true",
+              help="use debug logging level")
 #op.add_option("--in-memory", action="store_true",
 #              help="keep CSS parsing results in memory")
 #op.add_option("--anneal", type=int, metavar="N", default=9200,
@@ -108,9 +110,9 @@ op.set_default("in_memory", False)
 op.set_default("anneal", None)
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
-
     (opts, args) = op.parse_args()
+
+    logging.basicConfig(level=logging.DEBUG if opts.verbose else logging.INFO)
 
     if not args:
         op.error("you must provide at least one css file")
