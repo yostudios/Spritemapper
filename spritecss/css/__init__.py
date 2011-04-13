@@ -2,8 +2,8 @@
 
 # Copyright held by Yo Studios AB <opensource@yo.se>, 2011 
 #
-# Some kind of BSD license, contact above e-mail for more information on
-# matters of licensing.
+# Part of Spritemapper (https://github.com/yostudios/Spritemapper)
+# Released under a MIT/X11 license
 
 from .parser import CSSParser, print_css
 from itertools import ifilter, imap
