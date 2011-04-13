@@ -93,11 +93,13 @@ op.set_usage("%prog [opts] <css file(s) ...>")
 op.add_option("-c", "--conf", metavar="INI",
               help="read base configuration from INI")
 op.add_option("--padding", type=int, metavar="N",
-              help="have N pixels of padding between sprites")
-op.add_option("--in-memory", action="store_true",
-              help="keep CSS parsing results in memory")
-op.add_option("--anneal", type=int, metavar="N", default=9200,
-              help="simulated anneal steps (default: 9200)")
+              help="keep N pixels of padding between sprites")
+#op.add_option("--in-memory", action="store_true",
+#              help="keep CSS parsing results in memory")
+#op.add_option("--anneal", type=int, metavar="N", default=9200,
+#              help="simulated anneal steps (default: 9200)")
+op.set_default("in_memory", False)
+op.set_default("anneal", None)
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
