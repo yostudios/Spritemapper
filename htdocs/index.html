@@ -48,17 +48,30 @@
   <p>CSS Spritemap Generator</p>
 </header>
 
-<section id="example" class="grid-wrap">
-  <h2>Example</h2>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+<section id="about" class="grid-wrap">
+  <h2>Spritemapper is...</h2>
+  <p>Spritemapper is an application that merges multiple images into one and
+  generates CSS positioning for the corresponding slices.</p> 
+  <p><strong>Batteries included.</strong> The package consists of a simple
+  command-line tool that "does the job" and a Python library including its own
+  PNG and CSS parser. The choice of writing/bundling this was to stay off
+  3rd-party requirements. Anybody who has ever had the pleasant job of
+  installing <a href="http://www.pythonware.com/products/pil/">PIL</a> on
+  various platforms should have a pretty good idea about what we're trying to
+  avoid.</p> 
+  <p>There are multiple alternatives to Spritemapper, but they all require a bit too
+  much manual labour, whereas Spritemapper reads your current CSS and replaces
+  background images and position with the generated result.</p> 
+  <p>This technique drastically improves your website's loading speed, effectively
+  reducing bandwidth by downloading fewer images.</p>
 
+  <h2>Holy f---! how do I get it?</h2>
+  <p>Open Terminal.app, urxvt, xterm or whatever and type <code>easy_install spritemapper</code>.</p>
+  <p>When done, <code>spritemapper /path/to/static/css/**.css</code> and it
+  does its magic. Give the old <code>--help</code> a quick look, too.</p>
+</section>
+
+<section id="example" class="grid-wrap">
   <section id="source">
     <h3>Source</h3>
     <pre class="code css"></pre>
