@@ -6,9 +6,9 @@
 :Authors: Yo Studios <opensource@yostudios.se>
 
 Spritemapper is an application that merges multiple images into one and
-generating the CSS positioning for the corresponding slices.
+generates CSS positioning for the corresponding slices.
 
-The package consists of a simple command-line tool that "does the job", and a
+The package consists of a simple command-line tool that "does the job" and a
 Python library including its own PNG and CSS parser. The choice of
 writing/bundling this was to stay off 3rd-party requirements. Anybody who has
 ever had the pleasant job of installing PIL__ on various platforms should have
@@ -20,8 +20,8 @@ There are multiple alternatives to Spritemapper, but they all require a bit too
 much manual labour, whereas Spritemapper reads your current CSS and replaces
 background images and position with the generated result. 
 
-This technique drastically improves your website's loading speed by reducing
-bandwidth on downloading multiple images. 
+This technique drastically improves your website's loading speed, effectively
+reducing bandwidth by downloading fewer images.
 
 Spritemapper in action
 ----------------------
@@ -37,7 +37,7 @@ Here's a simple example illustrating what Spritemapper will do with your CSS:
      background: white url(../img/emoticons/grin.png) no-repeat;
    }
 
-... turns into:
+turns into:
 
 .. code-block:: css
 
@@ -47,6 +47,10 @@ Here's a simple example illustrating what Spritemapper will do with your CSS:
    .emote.grin {
      background: white url(../img/emoticons.png) no-repeat 0 -16px;
    }
+
+Check our homepage__ for real life examples.
+
+__ http://yostudios.github.com/Spritemapper/
 
 Usage
 -----
@@ -116,7 +120,7 @@ processed.
 Running tests
 -------------
 
-The test suite requires Nose__. You can run it through setup.py with ``python
-setup.py test`` or just ``nosetests``.
+The test suite requires Nose__. You can run them through setup.py, ``python
+setup.py test`` or plain ``nosetests``.
 
 __ http://somethingaboutorange.com/mrl/projects/nose/
