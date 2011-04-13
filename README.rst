@@ -26,9 +26,7 @@ reducing bandwidth by downloading fewer images.
 Spritemapper in action
 ----------------------
 
-Here's a simple example illustrating what Spritemapper will do with your CSS:
-
-.. code-block:: css
+Here's a simple example illustrating what Spritemapper will do with your CSS::
 
    .emote.smile {
      background: red url(../img/emoticons/smile.png) no-repeat;
@@ -37,9 +35,7 @@ Here's a simple example illustrating what Spritemapper will do with your CSS:
      background: white url(../img/emoticons/grin.png) no-repeat;
    }
 
-turns into:
-
-.. code-block:: css
+turns into::
 
    .emote.smile {
      background: red url(../img/emoticons.png) no-repeat 0 0;
@@ -68,15 +64,11 @@ Configuration options
 ---------------------
 
 Configuration options can be specified in one of two ways: inline in the CSS,
-*or* using passing an INI file with defaults. For CSS it looks something like:
-
-.. code-block:: css
+*or* using passing an INI file with defaults. For CSS it looks something like::
 
    /* spritemapper.output_css = foofile.css
 
-You can do the exact equivalent using an INI file, like this:
-
-.. code-block:: ini
+You can do the exact equivalent using an INI file, like this::
 
    [spritemapper]
    output_css = foofile.css
