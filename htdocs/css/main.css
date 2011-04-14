@@ -286,6 +286,22 @@ footer {
   font-family: 'Menlo', 'Monaco', monospace;
 }
 
+.awesome .letter.anim {
+  -webkit-animation: letter-in .2s 1 ease-out backwards;
+}
+
+p.input input {
+  width: 300px;
+  height: 15px;
+  padding: 8px 10px;
+  line-height: 1;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 15px;
+  background: #fff;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+}
+
+
 #yostudios {
   display: block;
   background-image: url(../img/sprites/yostudios.png);
@@ -293,5 +309,4 @@ footer {
   height: 293px;
   overflow: hidden;
   text-indent: -999px;
-
 }

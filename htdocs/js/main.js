@@ -24,30 +24,57 @@ function main() {
   }
 
   new Request({
-    url: 'css/example_source.css',
+    url: 'css/awesome-font.css',
     onSuccess: function(response) {
       setSource(document.id('source').getElement('pre'), response);
+      // quick n dirty find all the images,
+      var list = document.id('source').getElement('ul');
+      response.match(/url\(.*\)/ig).each(function(match) {
+        var relative = match.substring(match.indexOf('(') + 1, match.lastIndexOf(')'));
+        var src = 'css/' + relative;
+        list.adopt(new Element('li', {
+          'html': '<img src="' + src + '">'
+        }));
+      });
     }
   }).get();
 
   new Request({
-    url: 'css/example.css',
+    url: 'css/awesome.css',
     onSuccess: function(response) {
       setSource(document.id('output').getElement('pre'), response);
     }
   }).get();
 
-  var testCode = document.id('test-code').get('html');
+  // awesome-font-o-matic
+  var fontInput = document.id('font-text'),
+      fontContainer = document.getElement('.awesome'),
+      fontLen = fontInput.get('value').length;
 
-  // clean up & remove indentation
-  var indentLevel = testCode.indexOf('<') - 1;
-  testCode = testCode.split('\n').filter(function(line){
-    return line.length;
-  }).map(function(line) {
-    return line.substr(indentLevel);
-  }).join('\n');
+  function updateAwesome() {
+    var text = fontInput.get('value').toLowerCase();
+    fontContainer.empty();
 
-  setSource(document.id('test').getElement('pre'), testCode);
+    for (var i = 0; i < text.length; i++) {
+      var letter = text[i];
+      if (!letter.test(/[a-z ]/))
+        continue;
+      fontContainer.adopt(new Element('span', {
+        'class': 'letter ' + (letter == ' ' ? 'space' : letter),
+        'text': letter
+      }));
+    }
+    if (text.length > fontLen) {
+      fontContainer.getElements('span').getLast().addClass('anim');
+    }
+    fontLen = text.length;
+  }
+
+  fontInput.addEvents({
+    change: updateAwesome,
+    keyup: updateAwesome
+  });
+
 };
 
 window.addEvent('domready', main);
