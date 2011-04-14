@@ -1,4 +1,4 @@
-include README.rst MANIFEST.in setup.py
+include README.rst MANIFEST.in setup.py LICENSE requirements.txt
 recursive-include spritecss *.py
 recursive-include tests *.py
 recursive-include tests/test_css_files/ *.css

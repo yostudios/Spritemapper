@@ -1,7 +1,8 @@
 import sys
 import logging
 import optparse
-from os import path
+from os import path, access, R_OK
+from itertools import ifilter
 from contextlib import contextmanager
 
 from spritecss.css import CSSParser, print_css
@@ -42,7 +43,12 @@ class CSSFile(object):
     def map_sprites(self):
         with self.open_parser() as p:
             srefs = find_sprite_refs(p, conf=self.conf, source=self.fname)
-            return self.mapper.map_reduced(srefs)
+            def test_sref(sref):
+                if not access(str(sref), R_OK):
+                    logger.error("%s: not readable", sref); return False
+                else:
+                    logger.debug("%s passed", sref); return True
+            return self.mapper.map_reduced(ifilter(test_sref, srefs))
 
 class InMemoryCSSFile(CSSFile):
     def __init__(self, *a, **k):
@@ -93,16 +99,20 @@ op.set_usage("%prog [opts] <css file(s) ...>")
 op.add_option("-c", "--conf", metavar="INI",
               help="read base configuration from INI")
 op.add_option("--padding", type=int, metavar="N",
-              help="have N pixels of padding between sprites")
-op.add_option("--in-memory", action="store_true",
-              help="keep CSS parsing results in memory")
-op.add_option("--anneal", type=int, metavar="N", default=9200,
-              help="simulated anneal steps (default: 9200)")
+              help="keep N pixels of padding between sprites")
+op.add_option("-v", "--verbose", action="store_true",
+              help="use debug logging level")
+#op.add_option("--in-memory", action="store_true",
+#              help="keep CSS parsing results in memory")
+#op.add_option("--anneal", type=int, metavar="N", default=9200,
+#              help="simulated anneal steps (default: 9200)")
+op.set_default("in_memory", False)
+op.set_default("anneal", None)
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
-
     (opts, args) = op.parse_args()
+
+    logging.basicConfig(level=logging.DEBUG if opts.verbose else logging.INFO)
 
     if not args:
         op.error("you must provide at least one css file")

@@ -24,6 +24,7 @@ def test_reprint_trivial():
     reprint(" ")
     reprint("@test;\n")
     reprint("@test\n{ x: y; }\n")
+    reprint("@test foo { x: y; }\n")
     reprint("hello { world: foo; }\n")
     reprint("/* foo */bar{test:xxx;/*ee*/abc;;}\n")
 

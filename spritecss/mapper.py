@@ -93,7 +93,11 @@ class SpriteMapCollector(object):
         self._maps = {}
 
     def __iter__(self):
-        return self._maps.itervalues()
+        return (self._maps[k] for k in self._maps if k is not None)
+
+    @property
+    def unmapped_spriterefs(self):
+        return self.smaps.get(None, SpriteMap(None, []))
 
     def collect(self, smaps):
         for fname, smap in smaps.iteritems():
@@ -102,7 +106,7 @@ class SpriteMapCollector(object):
             else:
                 self._maps[fname] = SpriteMap(fname, smap)
 
-        return [self._maps[k] for k in smaps]
+        return [self._maps[k] for k in smaps if k is not None]
 
     def map_file(self, fname, mapper=None):
         """Convenience function to map the sprites of a given CSS file."""

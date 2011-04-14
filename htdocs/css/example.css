@@ -6,10 +6,9 @@
   # if not set, uses file-relative paths (recommended).
   #spritemapper.base_url = http://example.com/static/css/
 
-  # `sprite_folders` is a list of folders within which to create
-  # spritemaps. the named folders and their subdirectories are all
-  # spritemapped (if there are sprites used in those directories). by
-  # default, all top-level directories are used.
+  # `sprite_dirs` is a list of directories within which to allow
+  # spritemaps to be generated.
+  # by default, all directories are eligible.
   spritemapper.sprite_dirs = ../img/example-sprite
 
   # `output_css` sets the name for the rewritten css file.
@@ -24,25 +23,25 @@
 */
 
 .mysprite1 {
-  background: url('../img/example-sprite.png') no-repeat 0 -47px;
+  background: url('../img/example-sprite.png') no-repeat 0 0;
   width: 85px;
   height: 46px;
 }
 
 .mysprite2 {
-  background: url('../img/example-sprite.png') no-repeat -86px 0;
+  background: url('../img/example-sprite.png') no-repeat -88px 0;
   width: 143px;
   height: 218px;
 }
 
 .mysprite3 {
-  background: url('../img/example-sprite.png') no-repeat 0 -94px;
+  background: url('../img/example-sprite.png') no-repeat 0 -98px;
   width: 85px;
   height: 88px;
 }
 
 .mysprite4 {
-  background: url('../img/example-sprite.png') no-repeat 0 0;
+  background: url('../img/example-sprite.png') no-repeat 0 -49px;
   width: 85px;
   height: 46px;
 }
