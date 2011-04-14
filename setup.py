@@ -4,7 +4,7 @@ readme_text = open("README.rst", "U").read()
 
 cli_tools = ["spritemapper = spritecss.main:main"]
 
-setup(name="spritemapper", version="0.5",
+setup(name="spritemapper", version="0.6.0",
       url="http://yostudios.github.com/Spritemapper/",
       author="Yo Studios AB", author_email="opensource@yostudios.se",
       description="A suite for merging multiple images "
