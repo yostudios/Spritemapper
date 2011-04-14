@@ -1,10 +1,13 @@
+from os import path
 from setuptools import setup
 
-readme_text = open("README.rst", "U").read()
+readme_fn = path.join(path.dirname(__file__), "README.rst")
+with open(readme_fn) as fp:
+    readme_text = fp.read()
 
 cli_tools = ["spritemapper = spritecss.main:main"]
 
-setup(name="spritemapper", version="0.5",
+setup(name="spritemapper", version="0.6.0",
       url="http://yostudios.github.com/Spritemapper/",
       author="Yo Studios AB", author_email="opensource@yostudios.se",
       description="A suite for merging multiple images "

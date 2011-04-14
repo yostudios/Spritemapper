@@ -17,7 +17,7 @@ a pretty good idea about what we're trying to avoid.
 __ http://www.pythonware.com/products/pil/
 
 There are multiple alternatives to Spritemapper, but they all require a bit too
-much manual labour, whereas Spritemapper reads your current CSS and replaces
+much manual labour, whereas Spritemapper reads your current CSS, replacing
 background images and position with the generated result. 
 
 This technique drastically improves your website's loading speed, effectively
