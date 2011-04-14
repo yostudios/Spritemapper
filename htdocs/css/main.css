@@ -2,6 +2,8 @@
 
 @import url("logo_anim.css");
 
+* { margin: 0; padding: 0; border: 0; }
+
 body {
   background-color: #f5f9f0;
   background-image: url(../img/bg.png);
