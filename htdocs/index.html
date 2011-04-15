@@ -107,7 +107,7 @@
 
 <section id="usage" class="grid-wrap">
   <h2>Usage</h2>
-  <p>Run <code>spritemapper /path/to/static/css/**.css</code> and it
+  <p>Run <code>spritemapper /path/to/myfile.css</code> and it
   does its magic. Give the old <code>--help</code> a quick look, too.</p>
 
   <h3>Command-line</h3>
@@ -125,14 +125,46 @@
   </dl>
 
   <h3 id="configuration-options">Configuration options</h3>
-  <p>
-    Configuration options can be specified in one of two ways:
-    inline in the CSS, or using passing an INI file with defaults.
-    For CSS it looks something like:
-  </p>
+  <p>Configuration options can be specified in one of two ways: inline in the CSS,
+  <em>or</em> using passing an INI file with defaults. For CSS it looks something like:</p>
+  <pre>/* spritemapper.output_css = foofile.css */</pre>
+  <p>You can do the exact equivalent using an INI file, like this:</p>
+  <pre>[spritemapper]
+  output_css = foofile.css
+  </pre>
+  <p>It's important to note that all paths are relative to the CSS file being
+  processed.</p>
+  <dl>
+  <dt><tt>base_url</tt></dt>
+  <dd>a url at which the resulting css and image files can be reached.
+  by default uses file-relative paths (recommended).</dd>
+  <dt><tt>sprite_dirs</tt></dt>
+  <dd>a list of directories within which to allow spritemaps to be generated.
+  by default all directories are eligible.</dd>
+  <dt><tt>recursive</tt></dt>
+  <dd>set if sub-spritemaps should be generated when sub-directories are found.
+  set by default.</dd>
+  <dt><tt>output_image</tt></dt>
+  <dd>the name of output spritemap image.
+  <tt>sprite_dirs</tt> is incompatible with this because both tell the
+  spritemapper how to sort sprites into spritemaps.
+  by default <em>&lt;dir&gt;</em> + <tt>.png</tt>.</dd>
+  <dt><tt>output_css</tt></dt>
+  <dd>the name for the rewritten CSS file.
+  by default <tt>sm_{basename}{extension}</tt>.</dd>
+  <dt><tt>padding</tt></dt>
+  <dd>amount of padding space between two images. this is mostly useful to
+  counteract subpixel rendering artifacts on iOS devices.
+  by default 1.</dd>
+  <dt><tt>anneal_steps</tt></dt>
+  <dd>a larger number here makes the box packer algorithm try more combinations.
+  by default 9200.</dd>
+  </dl>
+  </div>
 
+  
+  
 </section>
-
 
 <section id="example" class="grid-wrap">
   <h2>Example</h2>
