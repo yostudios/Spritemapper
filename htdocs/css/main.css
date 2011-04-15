@@ -72,7 +72,7 @@ dd {
 }
 
 .grid-wrap {
-  width: 820px;
+  width: 800px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -184,7 +184,7 @@ pre.code {
   padding: 20px;
   font-family: 'Menlo', 'Monaco', monospace;
   font-size: 12px;
-  width: 500px;
+  width: 600px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
 }
 
@@ -230,15 +230,14 @@ pre.code {
   font-weight: bold;
 }
 
-
-
 #example pre {
   float: left;
-  margin-right: 20px;
 }
 
 #example ul {
   float: left;
+  margin: 0;
+  margin-left: 20px;
   list-style: none;
 }
 
@@ -250,6 +249,7 @@ pre.code {
   background: url(../img/transparency_pattern.png);
   float: left;
   padding: 10px;
+  margin-left: 20px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
 }
 
@@ -316,7 +316,6 @@ p.input input {
   -webkit-box-shadow: 0 0 3px #7E7E7E;
 }
 
-
 #yostudios {
   display: block;
   background-image: url(../img/sprites/yostudios.png);
@@ -325,3 +324,11 @@ p.input input {
   overflow: hidden;
   text-indent: -999px;
 }
+
+.mapmerge {
+  background: url(../img/sprites/mapmerge.png);
+  width: 219px;
+  height: 137px;
+  margin: 40px auto;
+}
+
