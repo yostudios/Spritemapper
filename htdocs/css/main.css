@@ -33,10 +33,13 @@ h2 {
 }
 
 h3 {
-  font-size: 16px;
-  margin: 20px 0;
-  margin-bottom: 10px;
-  clear: both;
+  font-size: 120%;
+  margin: 1.3em 5px 0;
+}
+
+h4 {
+  font-size: 100%;
+  margin: 1em 5px;
 }
 
 p {
