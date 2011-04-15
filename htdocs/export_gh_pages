@@ -3,10 +3,33 @@
 
 SOURCE=htdocs
 TARGET=gh-pages
+REMOTE=origin
 
 HTDOCS_TREE=`git write-tree --prefix=${SOURCE}`
 HTDOCS_COMMIT=`echo 'Placeholder commit for gh-pages' | git commit-tree ${HTDOCS_TREE}`
 
+confirm() {
+  default="Are you sure"
+  question=${1-$default}
+  echo "$question (Y/N)? "
+  while read -r -n 1 -s answer; do
+    if [[ $answer = [YyNn] ]]; then
+      [[ $answer = [Yy] ]] && retval=0
+      [[ $answer = [Nn] ]] && retval=1
+      break
+    fi
+  done
+
+  echo # just a final linefeed, optics...
+
+  return $retval
+}
+
 echo commit $HTDOCS_COMMIT
 git cat-file commit "$HTDOCS_COMMIT"
 git branch -f ${TARGET} ${HTDOCS_COMMIT}
+
+if confirm 'Push upstream'
+  then
+  git push ${REMOTE} +${TARGET}
+fi
