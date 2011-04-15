@@ -17,12 +17,14 @@ a {
 }
 
 code {
-    font-family: 'Menlo', monospace;
-    font-size: 8pt;
-    letter-spacing: -0.15em;
-    color: #dedede;
-    background: #242424;
-    padding: 0 2px;
+  font-family: 'Menlo', 'Monaco', monospace;
+  color: #EFEFEF;
+  font-size: 12px;
+  background: #242424;
+  padding: 1px 3px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
 }
 
 h2 {
