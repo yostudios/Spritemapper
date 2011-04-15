@@ -83,7 +83,7 @@ class CSSConfig(object):
 
     @property
     def anneal_steps(self):
-        return self._data.get("anneal_steps", 9200)
+        return int(self._data.get("anneal_steps", 9200))
 
     def get_spritemap_out(self, dn):
         "Get output image filename for spritemap directory *dn*."

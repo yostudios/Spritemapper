@@ -79,6 +79,8 @@ def spritemap(css_fs, conf=None, out=sys.stderr):
     for smap in smaps:
         with open_sprites(smap, pad=conf.padding) as sprites:
             w_ln("packing sprites in mapping %s" % (smap.fname,))
+            logger.debug("annealing %s in steps of %d",
+                         smap.fname, conf.anneal_steps)
             packed = PackedBoxes(sprites, anneal_steps=conf.anneal_steps)
             print_packed_size(packed)
             sm_plcs.append((smap, packed.placements))
