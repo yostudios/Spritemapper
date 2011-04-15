@@ -69,7 +69,7 @@ dd {
 }
 
 .grid-wrap {
-  width: 850px;
+  width: 820px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -97,10 +97,10 @@ header h1 {
 
 header p {
   background: url(../img/sprites/apa.png);
-  position: absolute;
+  position: relative;
   font-size: 12px;
-  left: 159px;
-  top: 64px;
+  left: 52px;
+  top: 15px;
   margin: 0;
   -webkit-animation: logo-subtext .5s .8s 1 ease-out backwards;
 }
