@@ -39,11 +39,11 @@ h3 {
 
 h4 {
   font-size: 100%;
-  margin: 1em 5px;
+  margin: 0.75em 5px;
 }
 
 p {
-  margin: 1em 5px;
+  margin: 0.75em 5px;
   line-height: 1.5em;
 }
 
@@ -221,6 +221,7 @@ pre.code.expanded .expander {
   display: none;
 }
 
+/* {{{ hilighting */
 .css .comment {
   font-style: italic;
   color: #0054FF;
@@ -262,6 +263,8 @@ pre.code.expanded .expander {
 .html .tag .keyword {
   font-weight: bold;
 }
+
+/* }}} */
 
 #example pre {
   float: left;

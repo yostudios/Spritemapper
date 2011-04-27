@@ -68,18 +68,17 @@
   </p>
 
   <p>
-    <strong>Batteries included.</strong> The package consists of a
-    simple command-line tool that "does the job" and a Python library
-    including its own PNG and CSS parser. The choice of writing/bundling
-    this was to stay off 3rd-party requirements. Anybody who has ever had
-    the pleasant job of installing <a href="http://www.pythonware.com/products/pil/">PIL</a>
-    on various platforms should have a pretty good idea about what we're
-    trying to avoid.
+    <strong>Batteries included.</strong> The package consists of a simple
+    command-line tool that does the job via a Python package including its own
+    PNG and CSS parser. There are no 3rd-party dependencies. Anybody who has
+    ever had the pleasant job of installing
+    <a href="http://www.pythonware.com/products/pil/">PIL</a> on various
+    platforms should have a pretty good idea about what we're trying to avoid.
   </p>
 
   <p>
     <strong>No space wasted.</strong> Spritemapper's image packer implements
-    <a href="http://en.wikipedia.org/wiki/Simulated_annealing">Simulated annealing</a>
+    <a href="http://en.wikipedia.org/wiki/Simulated_annealing">simulated annealing</a>
     to ensure that the images are packed tightly.
   </p>
 </section>
@@ -88,39 +87,37 @@
 
 <section id="installation" class="grid-wrap">
   <h2>Installation</h2>
+  <h3>Mac OS X (and Linux, anything but Windows)</h3>
   <p>
-    Open Terminal.app, urxvt, xterm or whatever and type
-    <code>easy_install spritemapper</code>. The tarball is available
-    <a href="http://pypi.python.org/pypi/spritemapper">on Spritemapper's
-    PyPI page</a>.
+    Open a terminal&mdash;Terminal, urxvt or whatever&mdash;and run
+    <code>sudo easy_install spritemapper</code>. Let stir for five seconds. Done.
+  </p>
+  <p>
+    The latest source release is available as a tarball
+    <a href="http://pypi.python.org/pypi/spritemapper">on Spritemapper's PyPI page</a>.
   </p>
 
-  <h3>OS X</h3>
-  <p>Open Terminal and type <code>sudo easy_install spritemapper</code><br><em>Enjoy!</em></p>
-
-  <h3>Linux</h3>
-  <p>Someone fill me in.</p>
-
-  <h3>Windows</h3>
+  <h3>Microsoft Windows</h3>
   <p>
     Make sure you have Python installed and that it is
     <a href="http://swaroopch.com/notes/Python_en:Installation#DOS_Prompt">in your PATH</a>, also
-    include the 'Scripts' directory inside your python installation if you
-    want to run spritemapper directly from the command prompt.
+    include the 'Scripts' directory inside of your Python installation if you
+    want to run <code>spritemapper</code> directly from the Command Prompt.
   </p>
   <h4>Pre-built .msi installer</h4>
   <p>
-    Go to <a href="https://github.com/yostudios/Spritemapper/downloads">Spritemapper's GitHub download page</a>
-    and download the latest .msi installer and run it.
+    Go to <a href="https://github.com/yostudios/Spritemapper/downloads">Spritemapper's
+    GitHub download page</a>, download the latest .msi installer and run it.
   </p>
-  <h4>From Source</h4>
-  <p>You will need <a href="http://git-scm.com/">Git</a> and <a href="http://pypi.python.org/pypi/setuptools">Python setuptools</a></p>
-  <p>
-    Open Command Prompt and locate a suitable folder where you want the sources and type:<br>
-    <code>git clone git://github.com/yostudios/Spritemapper.git</code><br>
-    cd into your freshly cloned repository <code>cd Spritemapper</code><br>
-    and install <code>python setup.py install</code>
-  </p>
+
+  <h3>From Source</h3>
+  <p>You'll need <a href="http://git-scm.com/">Git</a> and <a href="http://pypi.python.org/pypi/setuptools">Python setuptools</a>.</p>
+  <ol>
+    <li>Open a shell in a directory where you want the source</li>
+    <li><code>git clone git://github.com/yostudios/Spritemapper.git</code> &mdash; copy the source code</li>
+    <li><code>cd Spritemapper</code> &mdash; enter directory</li>
+    <li><code>python setup.py install</code> &mdash; install Spritemapper</li>
+  </ol>
 
 </section>
 
@@ -151,8 +148,7 @@
   <pre>[spritemapper]
   output_css = foofile.css
   </pre>
-  <p>It's important to note that all paths are relative to the CSS file being
-  processed.</p>
+  <p>Paths are always relative to the CSS file being processed.</p>
   <dl>
   <dt><tt>base_url</tt></dt>
   <dd>a url at which the resulting css and image files can be reached.
