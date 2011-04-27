@@ -39,11 +39,11 @@ h3 {
 
 h4 {
   font-size: 100%;
-  margin: 1em 5px;
+  margin: 0.75em 5px;
 }
 
 p {
-  margin: 1em 5px;
+  margin: 0.75em 5px;
   line-height: 1.5em;
 }
 
@@ -187,6 +187,7 @@ pre.code {
   -webkit-box-shadow: 0 0 3px #7E7E7E;
 }
 
+/* {{{ hilighting */
 .css .comment {
   font-style: italic;
   color: #0054FF;
@@ -228,6 +229,8 @@ pre.code {
 .html .tag .keyword {
   font-weight: bold;
 }
+
+/* }}} */
 
 #example pre {
   float: left;
