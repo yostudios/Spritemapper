@@ -117,7 +117,8 @@ def print_config(fname):
 
 def main():
     import sys
-    map(print_config, sys.argv[1:])
+    for fn in sys.argv[1:]:
+        print_config(fn)
 
 if __name__ == "__main__":
     main()
