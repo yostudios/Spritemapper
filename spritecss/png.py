@@ -375,9 +375,9 @@ class Writer:
         `bitdepth` argument into service for this.)
 
         The `palette` option, when specified, causes a colour mapped image
-	to be created: the PNG colour type is set to 3; greyscale
-	must not be set; alpha must not be set; transparent must
-	not be set; the bit depth must be 1,2,4, or 8.  When a colour
+        to be created: the PNG colour type is set to 3; greyscale
+        must not be set; alpha must not be set; transparent must
+        not be set; the bit depth must be 1,2,4, or 8.  When a colour
         mapped image is created, the pixel values are palette indexes
         and the `bitdepth` argument specifies the size of these indexes
         (not the size of the colour values in the palette).
@@ -403,12 +403,12 @@ class Writer:
         the PNG file, they are assumed to have already been converted
         appropriately for the gamma specified.
 
-	The `compression` argument specifies the compression level
-	to be used by the ``zlib`` module.  Higher values are likely
-	to compress better, but will be slower to compress.  The
-	default for this argument is ``None``; this does not mean
-	no compression, rather it means that the default from the
-	``zlib`` module is used (which is generally acceptable).
+        The `compression` argument specifies the compression level
+        to be used by the ``zlib`` module.  Higher values are likely
+        to compress better, but will be slower to compress.  The
+        default for this argument is ``None``; this does not mean
+        no compression, rather it means that the default from the
+        ``zlib`` module is used (which is generally acceptable).
 
         If `interlace` is true then an interlaced image is created
         (using PNG's so far only interace method, *Adam7*).  This does not
@@ -628,16 +628,16 @@ class Writer:
         """
         Write a PNG image to the output file.
 
-	Most users are expected to find the :meth:`write` or
-	:meth:`write_array` method more convenient.
+        Most users are expected to find the :meth:`write` or
+        :meth:`write_array` method more convenient.
         
-	The rows should be given to this method in the order that
-	they appear in the output file.  For straightlaced images,
-	this is the usual top to bottom ordering, but for interlaced
-	images the rows should have already been interlaced before
-	passing them to this function.
+        The rows should be given to this method in the order that
+        they appear in the output file.  For straightlaced images,
+        this is the usual top to bottom ordering, but for interlaced
+        images the rows should have already been interlaced before
+        passing them to this function.
 
-	`rows` should be an iterable that yields each row.  When
+        `rows` should be an iterable that yields each row.  When
         `packed` is ``False`` the rows should be in boxed row flat pixel
         format; when `packed` is ``True`` each row should be a packed
         sequence of bytes.
@@ -2072,15 +2072,15 @@ class Reader:
         return width, height, iterscale(), meta
 
     def asRGB8(self):
-	"""Return the image data as an RGB pixels with 8-bits per
-	sample.  This is like the :meth:`asRGB` method except that
-	this method additionally rescales the values so that they
-	are all between 0 and 255 (8-bit).  In the case where the
-	source image has a bit depth < 8 the transformation preserves
-	all the information; where the source image has bit depth
-	> 8, then rescaling to 8-bit values loses precision.  No
-	dithering is performed.  Like :meth:`asRGB`, an alpha channel
-	in the source image will raise an exception.
+        """Return the image data as an RGB pixels with 8-bits per
+        sample.  This is like the :meth:`asRGB` method except that
+        this method additionally rescales the values so that they
+        are all between 0 and 255 (8-bit).  In the case where the
+        source image has a bit depth < 8 the transformation preserves
+        all the information; where the source image has bit depth
+        > 8, then rescaling to 8-bit values loses precision.  No
+        dithering is performed.  Like :meth:`asRGB`, an alpha channel
+        in the source image will raise an exception.
 
         This function returns a 4-tuple:
         (*width*, *height*, *pixels*, *metadata*).
