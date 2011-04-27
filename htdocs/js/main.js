@@ -21,6 +21,12 @@ function main() {
   function setSource(el, source) {
     el.set('text', source);
     hljs.highlightBlock(el, '  ', false);
+    var expander = new Element('span', {'class': 'expander', 'text': 'expand'});
+    expander.addEvent('click', function(e) {
+      e.preventDefault();
+      el.addClass('expanded');
+    });
+    el.adopt(expander);
   }
 
   new Request({

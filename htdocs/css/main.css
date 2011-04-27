@@ -185,6 +185,40 @@ pre.code {
   font-size: 12px;
   width: 600px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
+  position: relative;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-transition: max-height 0.4s ease-in;
+}
+
+pre.code .expander {
+  display: block;
+  background: url(../img/codefade.png) repeat-x bottom;
+  height: 25px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  text-align: center;
+  padding-top: 25px;
+  color: #999;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+pre.code .expander:hover {
+  color: #000;
+  opacity: 0.6;
+}
+
+pre.code.expanded {
+  max-height: 2000px;
+}
+
+pre.code.expanded .expander {
+  display: none;
 }
 
 .css .comment {
