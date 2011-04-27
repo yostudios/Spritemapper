@@ -185,6 +185,7 @@ pre.code {
   font-size: 12px;
   width: 600px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
   position: relative;
   max-height: 700px;
   overflow: hidden;
@@ -287,6 +288,7 @@ pre.code.expanded .expander {
   padding: 10px;
   margin-left: 20px;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
 }
 
 .die {
@@ -350,6 +352,7 @@ p.input input {
   font-size: 15px;
   background: #fff;
   -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
 }
 
 #yostudios {
