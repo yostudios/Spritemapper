@@ -49,21 +49,40 @@
 
 <section id="about" class="grid-wrap">
 
-  <p>Spritemapper is an application that merges multiple images into one
-  and generates CSS positioning for the corresponding slices.</p>
-  <p><strong>Batteries included.</strong> The package consists of a
-  simple command-line tool that "does the job" and a Python library
-  including its own PNG and CSS parser. The choice of writing/bundling
-  this was to stay off 3rd-party requirements. Anybody who has ever had
-  the pleasant job of installing <a href="http://www.pythonware.com/products/pil/">PIL</a>
-  on various platforms should have a pretty good idea about what we're
-  trying to avoid.</p>
-  <p>There are multiple alternatives to Spritemapper, but they all
-  require a bit too much manual labour, whereas Spritemapper reads your
-  current CSS and replaces background images and position with the
-  generated result.</p>
-  <p>This technique drastically improves your website's loading speed,
-  effectively reducing bandwidth by downloading fewer images.</p>
+  <p>
+    Spritemapper is an application that merges multiple images into one
+    and generates CSS positioning for the corresponding slices.
+  </p>
+
+  <p>
+    <strong>Improves loadspeeds.</strong> 10% of a webpages loading time is
+    retrieving the HTML in one request. The remaining 90% is fetching styles,
+    scripts and images. CSS Spritemapping drastically improves your website's
+    loading speed, effectively reducing bandwidth by downloading fewer images.
+  </p>
+
+  <p>
+    <strong>Just plain old CSS.</strong> You don't have to write any extra syntax
+    to make Spritemapper work. Just define the directories of images you want
+    spritemapped and use the CSS background declaration as usual.
+  </p>
+
+  <p>
+    <strong>Batteries included.</strong> The package consists of a
+    simple command-line tool that "does the job" and a Python library
+    including its own PNG and CSS parser. The choice of writing/bundling
+    this was to stay off 3rd-party requirements. Anybody who has ever had
+    the pleasant job of installing <a href="http://www.pythonware.com/products/pil/">PIL</a>
+    on various platforms should have a pretty good idea about what we're
+    trying to avoid.
+  </p>
+
+  <p>
+    <strong>No space wasted.</strong> Spritemapper's image packer implements
+    <a href="http://en.wikipedia.org/wiki/Simulated_annealing">Simulated annealing</a>
+    to ensure that the images are packed tightly.
+  </p>
+
   <div class="mapmerge"></div>
 </section>
 
