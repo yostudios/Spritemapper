@@ -7,7 +7,7 @@ with open(readme_fn) as fp:
 
 cli_tools = ["spritemapper = spritecss.main:main"]
 
-setup(name="spritemapper", version="0.6.0",
+setup(name="spritemapper", version="1.0.0",
       url="http://yostudios.github.com/Spritemapper/",
       author="Yo Studios AB", author_email="opensource@yostudios.se",
       description="A suite for merging multiple images "
