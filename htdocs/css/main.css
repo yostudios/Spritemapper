@@ -324,10 +324,12 @@ p.input input {
   text-indent: -999px;
 }
 
-.mapmerge {
-  background: url(../img/sprites/mapmerge.png);
-  width: 219px;
-  height: 137px;
-  margin: 40px auto;
+.divider {
+  height: 1px;
+  border-bottom: 1px solid #000;
+  background: #fff;
+  width: 700px;
+  margin: 40px auto 80px;
+  opacity: 0.2;
 }
 
