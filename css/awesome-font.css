@@ -1,0 +1,123 @@
+/*
+  
+  Awesome-Font!
+  Royalty-free handcrafted font, kerning avalible to select customers.
+  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z and space!
+
+  spritemapper.sprite_dirs = ../img/awesome-font
+  spritemapper.output_css = awesome.css
+*/
+
+.letter {
+  display: inline-block;
+  overflow: hidden;
+  text-indent: -999px;
+}
+
+.letter.space {
+  width: 18px; height: 20px;
+}
+.letter.a {
+  background: url(../img/awesome-font/a.png);
+  width: 22px; height: 17px;
+}
+.letter.b {
+  background: url(../img/awesome-font/b.png);
+  width: 15px; height: 17px;
+}
+.letter.c {
+  background: url(../img/awesome-font/c.png);
+  width: 16px; height: 17px;
+}
+.letter.d {
+  background: url(../img/awesome-font/d.png);
+  width: 16px; height: 17px;
+}
+.letter.e {
+  background: url(../img/awesome-font/e.png);
+  width: 12px; height: 12px;
+}
+.letter.f {
+  background: url(../img/awesome-font/f.png);
+  width: 16px; height: 15px;
+}
+.letter.g {
+  background: url(../img/awesome-font/g.png);
+  width: 15px; height: 17px;
+}
+.letter.h {
+  background: url(../img/awesome-font/h.png);
+  width: 11px; height: 11px;
+}
+.letter.i {
+  background: url(../img/awesome-font/i.png);
+  width: 10px; height: 15px;
+}
+.letter.j {
+  background: url(../img/awesome-font/j.png);
+  width: 12px; height: 13px;
+}
+.letter.k {
+  background: url(../img/awesome-font/k.png);
+  width: 10px; height: 14px;
+}
+.letter.l {
+  background: url(../img/awesome-font/l.png);
+  width: 11px; height: 15px;
+}
+.letter.m {
+  background: url(../img/awesome-font/m.png);
+  width: 13px; height: 15px;
+}
+.letter.n {
+  background: url(../img/awesome-font/n.png);
+  width: 11px; height: 11px;
+}
+.letter.o {
+  background: url(../img/awesome-font/o.png);
+  width: 15px; height: 11px;
+}
+.letter.p {
+  background: url(../img/awesome-font/p.png);
+  width: 10px; height: 18px;
+}
+.letter.q {
+  background: url(../img/awesome-font/q.png);
+  width: 14px; height: 20px;
+}
+.letter.r {
+  background: url(../img/awesome-font/r.png);
+  width: 12px; height: 18px;
+}
+.letter.s {
+  background: url(../img/awesome-font/s.png);
+  width: 11px; height: 15px;
+}
+.letter.t {
+  background: url(../img/awesome-font/t.png);
+  width: 11px; height: 16px;
+}
+.letter.u {
+  background: url(../img/awesome-font/u.png);
+  width: 9px; height: 10px;
+}
+.letter.v {
+  background: url(../img/awesome-font/v.png);
+  width: 9px; height: 13px;
+}
+.letter.w {
+  background: url(../img/awesome-font/w.png);
+  width: 14px; height: 10px;
+}
+.letter.x {
+  background: url(../img/awesome-font/x.png);
+  width: 12px; height: 12px;
+}
+.letter.y {
+  background: url(../img/awesome-font/y.png);
+  width: 11px; height: 21px;
+}
+.letter.z {
+  background: url(../img/awesome-font/z.png);
+  width: 13px; height: 11px;
+}

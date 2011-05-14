@@ -1,0 +1,375 @@
+/* spritemapper.sprite_dirs = ../img/sprites */
+
+@import url("logo_anim.css");
+
+* { margin: 0; padding: 0; border: 0; }
+
+body {
+  background: #f5f9f0 url(../img/bg.png) repeat-x;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #252626;
+}
+
+a {
+  color: #DD6E08;
+}
+
+code {
+  font-family: 'Menlo', 'Monaco', monospace;
+  color: #EFEFEF;
+  font-size: 12px;
+  background: #242424;
+  padding: 1px 3px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+h2 {
+  font-size: 150%;
+  margin-top: 1.5em;
+}
+
+h3 {
+  font-size: 120%;
+  margin: 1.3em 5px 0;
+}
+
+h4 {
+  font-size: 100%;
+  margin: 0.75em 5px;
+}
+
+p {
+  margin: 0.75em 5px;
+  line-height: 1.5em;
+}
+
+ul, ol {
+  margin: 1em 0 1em 2em;
+}
+
+ul li, ol li {
+  margin-top: .5em;
+  margin-bottom:.5em;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-top: 0;
+  margin-bottom:0;
+}
+
+dt {
+  font-weight :bold;
+  margin-left: 1em;
+}
+
+dd {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+.grid-wrap {
+  width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.clear {
+  clear: both;
+}
+
+header {
+  position: relative;
+  height: 89px;
+  margin: 40px auto !important;
+}
+
+header h1 {
+  position: relative;
+  background: url('../img/sprites.png') no-repeat 0 0;
+  width: 305px;
+  height: 48px;
+  top: 18px;
+  text-indent: -999px;
+  overflow: hidden;
+  -webkit-animation: logo-text .3s .1s 1 ease-out backwards;
+}
+
+header p {
+  position: relative;
+  font-size: 12px;
+  left: 52px;
+  top: 15px;
+  margin: 0;
+  -webkit-animation: logo-subtext .5s .8s 1 ease-out backwards;
+}
+
+header .icon {
+  margin-right: 18px;
+}
+
+a.fork {
+  display: block;
+  background: url('../img/sprites.png') no-repeat -90px -343px;
+  position: absolute;
+  top: 0; right: 0;
+  width: 149px;
+  height: 149px;
+  text-indent: -999px;
+  overflow: hidden;
+}
+
+.icon {
+  display: block;
+  position: relative;
+  float: left;
+  width: 89px;
+  height: 89px;
+}
+
+.icon span {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  -webkit-animation: .5s .5s 1 ease-out backwards;
+}
+
+.icon .part1 {
+  background: url('../img/sprites.png') no-repeat -31px -343px;
+  width: 58px;
+  height: 59px;
+  -webkit-animation-name: icon-1;
+}
+
+.icon .part2 {
+  background: url('../img/sprites.png') no-repeat 0 -109px;
+  width: 30px;
+  height: 30px;
+  left: 58px;
+  -webkit-animation-name: icon-2;
+}
+
+.icon .part3 {
+  background: url('../img/sprites.png') no-repeat 0 -49px;
+  width: 30px;
+  height: 59px;
+  left: 58px;
+  top: 30px;
+  -webkit-animation-name: icon-3;
+}
+
+.icon .part4 {
+  background: url('../img/sprites.png') no-repeat 0 -171px;
+  width: 29px;
+  height: 30px;
+  top: 59px;
+  -webkit-animation-name: icon-4;
+}
+
+.icon .part5 {
+  background: url('../img/sprites.png') no-repeat 0 -140px;
+  width: 29px;
+  height: 30px;
+  top: 59px;
+  left: 29px;
+  -webkit-animation-name: icon-5;
+}
+
+pre.code {
+  background: #fff;
+  padding: 20px;
+  font-family: 'Menlo', 'Monaco', monospace;
+  font-size: 12px;
+  width: 600px;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
+  position: relative;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-transition: max-height 0.4s ease-in;
+}
+
+pre.code .expander {
+  display: block;
+  background: url(../img/codefade.png) repeat-x bottom;
+  height: 25px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  text-align: center;
+  padding-top: 25px;
+  color: #999;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+pre.code .expander:hover {
+  color: #000;
+  opacity: 0.6;
+}
+
+pre.code.expanded {
+  max-height: 2000px;
+}
+
+pre.code.expanded .expander {
+  display: none;
+}
+
+/* {{{ hilighting */
+.css .comment {
+  font-style: italic;
+  color: #0054FF;
+}
+
+.css .class {
+  color: #3566C7;
+}
+
+.css .rule .keyword {
+  font-weight: bold;
+}
+
+.css .rule .value .function {
+  font-weight: bold;
+}
+
+.css .rule .value .function .params {
+  font-weight: normal;
+  color: #179439;
+}
+
+.css .rule .value .number {
+  color: #277CFA;
+}
+
+.html .tag {
+  color: #3566C7;
+}
+
+.html .tag .value {
+  color: #179439;
+}
+
+.html .tag .attribute {
+  font-style: italic;
+}
+
+.html .tag .keyword {
+  font-weight: bold;
+}
+
+/* }}} */
+
+#example pre {
+  float: left;
+}
+
+#example ul {
+  float: left;
+  margin: 0;
+  margin-left: 20px;
+  list-style: none;
+}
+
+#test ul li {
+  margin-bottom: 5px;
+}
+
+.spritemap-preview {
+  background:  url(../img/transparency_pattern.png);
+  float: left;
+  padding: 10px;
+  margin-left: 20px;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
+}
+
+.die {
+  background: #600019;
+  border-bottom: 10px solid #510024;
+  padding-top: 10px;
+  margin-bottom: 20px;
+}
+
+.die,
+.die a {
+  color: #fff;
+}
+
+.die h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.die p {
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+
+.die p .browser {
+  float: right;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-right: 30px;
+}
+
+.die p .browser a {
+  margin: 0 2px;
+}
+
+footer {
+  width: 254px;
+  margin: 60px auto;
+}
+
+.love span {
+  width: 230px;
+  display: block;
+  margin-left: 25px;
+  margin-bottom: 20px;
+  text-indent: -10px;
+  font-family: 'Menlo', 'Monaco', monospace;
+}
+
+.awesome .letter.anim {
+  -webkit-animation: letter-in .2s 1 ease-out backwards;
+}
+
+p.input input {
+  width: 300px;
+  height: 15px;
+  padding: 8px 10px;
+  line-height: 1;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 15px;
+  background: #fff;
+  -webkit-box-shadow: 0 0 3px #7E7E7E;
+  -moz-box-shadow: 0 0 3px #7E7E7E;
+}
+
+#yostudios {
+  background: url('../img/sprites.png') no-repeat -31px -49px;
+  display: block;
+  width: 254px;
+  height: 293px;
+  overflow: hidden;
+  text-indent: -999px;
+}
+
+.divider {
+  height: 1px;
+  border-bottom: 1px solid #000;
+  background: #fff;
+  width: 700px;
+  margin: 40px auto 80px;
+  opacity: 0.2;
+}
+
