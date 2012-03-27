@@ -28,7 +28,7 @@ def _bg_positioned(val):
     return False
 
 def _match_background_url(val):
-    mo = bg_url_re.match(val)
+    mo = bg_url_re.search(val)
     if not mo:
         raise NoSpriteFound(val)
     return mo.groups()[0]
