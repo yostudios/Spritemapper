@@ -96,9 +96,14 @@ def spritemap(css_fs, conf=None, out=sys.stderr):
         with open(css.output_fname, "wb") as fp:
             print_css(replacer(css), out=fp)
 
+def pyfile_dir():
+    import sys
+    x=sys.path[0]
+    return x if path.isdir(x) else path.dirname(x)
+
 op = optparse.OptionParser()
 op.set_usage("%prog [opts] <css file(s) ...>")
-op.add_option("-c", "--conf", metavar="INI",
+op.add_option("-c", "--conf", metavar="INI", default=pyfile_dir()+"/spritecss.ini",
               help="read base configuration from INI")
 op.add_option("--padding", type=int, metavar="N",
               help="keep N pixels of padding between sprites")
@@ -126,12 +131,15 @@ def main():
 
     base = {}
 
-    if opts.conf:
+    try:
         from ConfigParser import ConfigParser
         cp = ConfigParser()
         with open(opts.conf) as fp:
             cp.readfp(fp)
         base.update(cp.items("spritemapper"))
+    except IOError:
+        pass
+
     if opts.anneal:
         base["anneal_steps"] = opts.anneal
     if opts.padding:
