@@ -1,7 +1,12 @@
 from contextlib import contextmanager
+import logging
 
 from ..image import Image
+from ..png import FormatError
 from . import Rect
+
+logger = logging.getLogger(__name__)
+
 
 class SpriteNode(Rect):
     def __init__(self, im, width, height, fname=None, pad=(0, 0)):
@@ -39,8 +44,14 @@ class SpriteNode(Rect):
 @contextmanager
 def open_sprites(fnames, **kwds):
     fs = [(fn, open(str(fn), "rb")) for fn in fnames]
+    sprites = []
     try:
-        yield [SpriteNode.load_file(fo, fname=fn, **kwds) for (fn, fo) in fs]
+        for fn, fo in fs:
+            try:
+                sprites.append(SpriteNode.load_file(fo, fname=fn, **kwds))
+            except FormatError, e:
+                logger.warn('%s: invalid image file: %s', fn, e)
+        yield sprites
     finally:
         for fn, fo in fs:
             fo.close()
