@@ -46,6 +46,8 @@ class CSSFile(object):
             def test_sref(sref):
                 if not access(str(sref), R_OK):
                     logger.error("%s: not readable", sref); return False
+                if not str(sref).lower().endswith('.png'):
+                    logger.warn('%s: unsupported format', sref); return False
                 else:
                     logger.debug("%s passed", sref); return True
             return self.mapper.map_reduced(ifilter(test_sref, srefs))
