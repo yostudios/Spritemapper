@@ -483,11 +483,9 @@ class CSSParser(EventStream):
         elif lex == "comment_begin":
             return st.sub(self._handle_comment)
         elif lex == "block_end":
-            # this happens when the last declaration isn't terminated properly
-            # NOTE This is really invalid CSS, but we're nice people.
+            # This happens when the last declaration isn't terminated with a
+            # semicolon, which is valid (and often occurs during minimization)
             if st.declaration:
-                raise RuntimeError("unconsumed declaration in %r, "
-                                   "missing semicolon?" % (st,))
                 self.push(Declaration(st))
             self.push(BlockEnd(st))
             return st(handler=None, declaration="", selector="")
