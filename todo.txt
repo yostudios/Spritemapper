@@ -1,0 +1,3 @@
+* Don't let Spritemapper generate output_image=".png"
+
+* Handle "background-image"?
