@@ -4,7 +4,7 @@ import logging
 
 from . import SpriteRef
 from .css import split_declaration
-from .finder import NoSpriteFound, get_background_url
+from .finder import NoSpriteFound, get_background_url, excluded_repeat
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,10 @@ class SpriteReplacer(object):
                 sref = SpriteRef(css.conf.normpath(url),
                                  source=css.fname)
                 try:
-                    new = self._replace_val(css, ev, sref)
+                    if excluded_repeat(val):
+                        new = val
+                    else:
+                        new = self._replace_val(css, ev, sref)
                 except KeyError:
                     new = val
                 ev.declaration = "%s: %s" % (prop, new)
