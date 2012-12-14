@@ -11,9 +11,17 @@ from .css import split_declaration
 logger = logging.getLogger(__name__)
 
 bg_url_re = re.compile(r'\s*url\([\'"]?(.*?)[\'"]?\)\s*')
-
 class NoSpriteFound(Exception): pass
 class PositionedBackground(NoSpriteFound): pass
+
+def excluded_repeat(val):
+    result = None
+    for part in val.split():
+        if part in ('repeat', 'repeat-x', 'repeat-y'):
+            return True
+        elif part == 'no-repeat':
+            result = False
+    return result
 
 _pos_names = ("top", "center", "bottom", "right", "middle", "left")
 _pos_units = ("px", "%")
